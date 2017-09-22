@@ -1,0 +1,51 @@
+@font-face {
+	font-family: 'Conv_Sukhmani';
+	src: url('../assets/fonts/Sukhmani.eot');
+	src: local('☺'), url('../assets/fonts/Sukhmani.woff') format('woff'), url('../assets/fonts/Sukhmani.ttf') format('truetype'), url('../assets/fonts/Sukhmani.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Conv_ASEES_RG';
+	src: url('../assets/fonts/ASEES_RG.eot');
+	src: local('☺'), url('../assets/fonts/ASEES_RG.woff') format('woff'), url('../assets/fonts/ASEES_RG.ttf') format('truetype'), url('../assets/fonts/ASEES_RG.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.alert-md .alert-wrapper{background: -moz-linear-gradient(top, #e5b250 0%, #ffffff 44%, #ffffff 44%, #ffffff 51%, #ffffff 51%, #ffffff 58%, #6fbd5b 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e5b250 0%,#ffffff 44%,#ffffff 44%,#ffffff 51%,#ffffff 51%,#ffffff 58%,#6fbd5b 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e5b250 0%,#ffffff 44%,#ffffff 44%,#ffffff 51%,#ffffff 51%,#ffffff 58%,#6fbd5b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	border-radius: 10px;
+}
+.alert-md .alert-wrapper{
+	opacity: 1;
+    transform: scale(1);
+    background-color: #fde4b3;
+    border-radius: 20px;
+}
+.alert-md .alert-button{     color: #000;
+	border: 1px solid #000;
+	border-radius: 16px;
+	padding: 0px 16px;
+	margin-bottom: 9px;
+	font-weight: 500;
+	font-size: 13px;
+	}
+.alert-md .alert-title {
+	font-weight: 400;
+	font-size: 20px;
+}
+
+video::-internal-media-controls-download-button {
+    display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 35px); /* Adjust as needed */
+}

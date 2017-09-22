@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>  
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f9e7cf;">
+  <ion-searchbar [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchTerm)" ></ion-searchbar>
+  <ion-row>
+    <ion-card *ngIf="buttonClicked" class="rnumber">
+    <ion-card-content>
+        <ion-row class="complaint-row">
+         <h3>{{complaintname}}</h3>
+          </ion-row>
+          <ion-row >
+          <p class="para-complaint">{{complnt}}</p>
+          </ion-row>
+          <ion-row *ngIf="allImage != '' ">
+          <img *ngFor="let img of allImage" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img"/>
+          </ion-row>
+          <video  *ngIf="reply_video != '' && reply_video != 'undefined'" class ="video-complaint" controls="controls" src="http://kailash.mediaoncloud.com/MLAfiles/{{reply_video}}" type="video/mp4" style="height:180px;width:300px;"></video><br>
+          <ion-row>
+          <a (click)="viewrefdetail(refrenceno)" class="response">{{titles.resp}}</a>
+          </ion-row>
+          <ion-row>
+           <p *ngIf="buttonClick" style="color:black;">{{replymsg}}</p>
+          </ion-row>
+           <div *ngIf="buttonClick">
+             <div *ngFor="let img of replyimages">
+               <img *ngIf="img" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img" />
+             </div>
+          </div>
+           <div *ngIf="buttonClick">
+               <video *ngIf="replyvideo != '' " controls="controls" src="http://kailash.mediaoncloud.com/MLAfiles/{{replyvideo}}" type="video/mp4" style="height:180px;width:300px;"></video>
+           </div>
+          </ion-card-content>
+       </ion-card>
+     </ion-row>
+</ion-content>

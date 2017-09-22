@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{titles.gallery}}</ion-title>
+  </ion-navbar> 
+</ion-header>
+
+<ion-content padding style="background-image: url(img/back.png); background-size: cover;"> 
+  <ion-input type="hidden" [(ngModel)]="imagesoffset" id="moviesOffset"></ion-input>
+    <img *ngFor="let item of allImages" [src]="item"  (click)="openImage(item)" class="gal-img" />
+    <p>{{load}}</p>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event,imagesoffset)">
+      <ion-infinite-scroll-content ></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+

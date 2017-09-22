@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+     <ion-title>Edit Profile</ion-title> 
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="background-image: url(img/back.png); background-size: cover;">
+  <ion-grid class="first-one">  
+    <ion-row >
+  <ion-col col-7 class="col-one">
+  <p>{{titles.title}}</p>
+   <p class="p2">{{titles.Designation}}</p>
+    </ion-col>
+  
+  <ion-col col-5 class="col-second">
+  <img src="img/photo.jpg"/>
+  </ion-col>
+  
+   </ion-row>
+   </ion-grid>
+   <ion-row class="first-row">
+      <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="usrname" name="usrname"></ion-input>
+    </ion-row>
+    <ion-row class="first-row">
+        <ion-input type="tel" maxlength="10" placeholder="{{titles.mobile}}"  [(ngModel)]="p_no" name="p_no"></ion-input>
+    </ion-row>
+    <ion-row class="first-row">
+        <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addvalue" name="addvalue"></ion-input>
+    </ion-row>
+   
+<ion-row class="second-row">
+  <select id="areacat" class="drop-down" type="text" name="Areaa" onmousedown="this.value='';" [(ngModel)]="Areaa"
+    (change)="areacategory(Areaa)">  
+      <option value="" disabled selected>{{titles.area}}</option>
+      <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>
+    </select>
+</ion-row>
+
+<ion-row *ngIf="value == 'ward'" class="second-row">
+  <select class="drop-down" type="text" name="catward" onmousedown="this.value='';" [(ngModel)]="catward" (change)="wardcategory(catward)">  
+    <option value="" disabled selected>{{titles.ward}}</option>
+    <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>
+  </select>
+</ion-row>
+
+<ion-row [hidden]='!value1' class="second-row">
+  <select class="drop-down" type="text" name="areavill" onmousedown="this.value='';" [(ngModel)]="areavill" (change)="villagecat(areavill)">  
+    <option value="" disabled selected>{{titles.village}}</option>
+    <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>
+  </select>
+</ion-row>
+
+    <ion-row class="first-row">
+        <ion-input type="email" placeholder="{{titles.email}}({{titles.optional}})" [(ngModel)]="Email" name="Email"></ion-input>
+    </ion-row>
+    <ion-row class="second-row">
+      <p>{{titles.gender}}</p>
+      <select type="text" class="drop-down" placeholder="Select Gender" [(ngModel)]="gender" onmousedown="this.value='';" >  
+        <option value="" disabled selected>{{titles.selectgen}}</option>
+        <option value="Female">{{titles.Female}}</option>
+        <option value="Male">{{titles.male}}</option>
+      </select>
+    </ion-row>
+  
+  <button ion-button block outline type="submit" class="button-submit" (click)="submit(usrname,p_no,addvalue,Areaa,catward,areavill,Email,gender)">Save Profile</button>
+</ion-content>

@@ -1,0 +1,171 @@
+page-home {
+.scroll-content{    background-color: #f9e7cf;}
+.first-row{    background-color: #cca272;
+    margin-top: 2em;
+    width: 95%;}  
+ .col-one p{  font-size: 21px;
+
+    color: #fff;
+    margin:3px 0px;}
+  .col-one p.p2{  font-size: 17px;
+
+    color: #fff;
+     margin: 0px;}
+     .col-two{    text-align: center;
+    background-color: #f48983;
+    padding: 3.5em 0em;}
+    .col-two p{    margin: 0px;
+    color: #fff;
+    font-size: 17px;}
+    .col-three{  text-align: center;
+    background-color: #f48983;
+    padding: 1.6em 0em;}
+    .right-side{ text-align: center;
+    background-color: #c68834;
+    height: 77px;
+    padding: 16px 1em;
+    margin: 0px 4px;
+}
+.right-sidetop{text-align: center;
+        background-color: #f3976e;
+height: 77px;
+    padding: 16px 1em;
+    margin: 0px 4px;
+    margin-bottom:10px;
+    }
+.right-sidetop img{    height: 42px;}
+.right-sidetop p{ color: #fff;
+  font-size: 17px;
+
+    padding: 0px 0px 0px 4px;
+    margin: 7px 0px;
+    line-height: 20px;}
+
+.right-side img{    height: 42px;}
+.right-side p{ color: #fff;
+   font-size: 17px;
+
+    padding: 0px 0px 0px 4px;
+    margin: 7px 0px;}
+.padding-none{padding:0px;}
+.col-two{width: 48%;
+    margin: 0px 5px;box-shadow: 1px 1px 11px 1px #818181;}
+    .col-three{width: 48%;
+    margin: 0px 5px;}
+
+
+    .second-row{  background-color: #c68834;}
+    .third-col{    background-color: #f9a35a;
+        padding: 1.7em 1.9em 1.7em 1.9em;
+    }
+    .third-col p {  text-align: center;
+        font-size: 17px;
+        padding: 3px 0px 0px 8px;
+        margin-top: 12px;
+        color: #fff;
+        /* float: left; */
+        text-align: left;
+        width: 120px;
+    }
+    .third-col img{    height: 41px;     margin: auto;}
+ 
+
+    .six-col{    background-color:#7dbdd8;
+        padding: 1.7em 1.5em 1.7em 1.5em;
+        height: 9em;
+  }
+  .six-col p {     text-align: center;
+    font-size: 17px;
+    margin-top: 7px;
+    color: #fff;
+    margin: 0px;
+    padding: 9px 0px;}
+  .six-col img{    height: 41px;     margin: auto;}
+
+
+.fiv-col{       background-color: #72c7c0;
+    padding: 1.5em 2.5em 1.7em 2em;
+    height: 9em;
+  border-left: 10px solid #f9e7cf;}
+  .fiv-col  p{   text-align: center;
+    font-size: 17px;
+        padding: 3px 0px 0px 8px;
+        margin-top: 7px;
+        color: #fff;}
+
+
+   .fiv-col img{  height: 42px;     margin: auto;}     
+
+    .fourth-col{    background-color: #ff7739;
+      padding: 1.7em 17px 1.7em 23px;padding: 1.7em 15px 1.7em 15px;
+    border-left: 10px solid #f9e7cf;}
+       .fourth-col p{   text-align: center;
+font-size: 17px;
+    padding: 3px 0px 0px 8px;
+    margin-top: 7px;
+    color: #fff;}
+    .fourth-col img{    height: 42px;}
+    .last-grid{padding: 5px 9px;}
+    .last-div{    background-color: #7dbdd8;
+    margin: 7px 10px;
+    padding: 15px 0px 15px 9em;}
+    .last-div img{    height: 41px;}
+.last-div p{color:#fff; font-size:17px;}
+
+
+
+.fiv-col{    background-color: #f9a35a;
+    padding: 1.7em 3em 1.7em 3em;;
+}
+.fiv-col p {    text-align: center;
+font-size: 17px;
+
+padding: 3px 0px 0px 8px;
+margin-top: 7px;
+color: #fff;}
+
+@media(max-width:360px){.right-sidetop {padding: 16px 8px;}
+.right-side{padding: 16px 8px;}
+.third-col{    padding: 1.5em 0.8em 1.5em 0.8em;
+}
+ .last-div {padding: 15px 0px 15px 7em;}
+}
+
+@media(max-width:320px){
+.col-two img{    height: 30px;}
+    .right-sidetop img{    height: 30px;}
+    .right-side img{    height: 30px;}
+    .third-col img{    height: 30px;     margin: auto;}
+    .six-col img{    height:30px;     margin: auto;}
+    .fourth-col img{    height: 30px;}
+    .last-div img{    height: 30px;}
+    .col-two img{    height: 30px;}
+    .right-sidetop p{     font-size: 13px;}
+    .right-side  p{     font-size: 13px;}
+    .third-col  p{     font-size: 13px;}
+    .six-col  p{     font-size: 13px;}
+    .fourth-col  p{     font-size: 13px;}
+    .last-div  p{     font-size: 13px;}
+    .col-two p{     font-size: 13px;}
+
+}
+.toolbar-background-md {
+    border-color: #b2b2b2;
+    background: #5f6473;
+}
+.toolbar-title-md {
+    padding: 0 12px;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #fff;
+    
+}
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+    color: white;
+    background-color: transparent;
+}
+ion-icon {
+    display: inline-block;
+    font-size: 1.6em;
+}
+}

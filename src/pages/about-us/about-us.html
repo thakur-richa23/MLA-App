@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{titles.pagetitle}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content style="background-image: url(img/back.png); background-size: cover;">
+  <ion-grid class="first-row">  
+      <ion-row (click)="about()">
+        <ion-col col-7 class="col-one">
+          <p>{{titles.title}}</p>
+          <p class="p2">{{titles.Designation}}</p>
+        </ion-col>
+        <ion-col col-5 class="col-second">
+          <img src="img/photo.jpg"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
+  <p  [class]="styleCustom"> {{titles.message}}</p>
+  <!-- <p class="parah-1">Education :</p>
+  <p class="parah-2"> Graduate Professional</p>
+  <p class="parah-1">Website :</p>
+  <p class="parah-2">http://dharambiragnihotri.darlic.com/</p> -->
+
+</ion-content>

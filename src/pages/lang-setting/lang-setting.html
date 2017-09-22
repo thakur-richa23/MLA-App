@@ -1,0 +1,24 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{titles.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list radio-group [(ngModel)]="relationship">
+        <ion-item>
+          <ion-label>{{titles.title1}}</ion-label>
+          <ion-radio value="english" checked></ion-radio>
+         
+        </ion-item>
+        <ion-item>
+          <ion-label>{{titles.title2}}</ion-label>
+          <ion-radio value="punjabi" ></ion-radio>
+        </ion-item>
+      </ion-list>
+      <button ion-button round outline block type="submit" class="button-submit" (click)="langset(relationship)">{{titles.setlang}}</button>        
+</ion-content>

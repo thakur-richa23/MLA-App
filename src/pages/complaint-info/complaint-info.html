@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title >{{titles.viewcomplaint}}</ion-title>
+    <ion-icon ios="ios-search" md="md-search" class="searchicon" (click)="searchBtn()" ></ion-icon>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:#f9e7cf; margin-top:30px;">
+<ion-searchbar *ngIf="buttonClicked" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchTerm)" ></ion-searchbar>
+<div *ngIf= "enableIn == true">
+<div *ngIf="allData">
+<ion-row *ngFor="let data of allData; let i= index" class="rnumber {{cssDataColor[i].class}}" >
+  <span>{{allData[i].ref_num}}</span><a (click)="view_detail(i, allData[i].ref_num)" href="#">{{titles.viewdetail}}</a>
+  <ion-card [class] = "cssData[i].class">
+      <ion-card-content>
+        <ion-row  class="complaint-row">
+        <h4 > {{allData[i].name}}</h4>
+        <p > {{allData[i].date}}</p>
+        </ion-row>
+        <ion-row>
+          <p class="para-complaint">{{allData[i].complaint}}</p>
+        </ion-row>
+        <ion-row *ngIf="allImages1[i].img != '' ">
+        <img *ngFor="let img of allImages1[i].img" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img"/>
+        </ion-row>
+        <ion-row class="video-main">
+        <video *ngIf="allData[i].video != '' && allData[i].video != 'undefined' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{allData[i].video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>  
+        </ion-row>
+        <ion-row *ngIf="allData[i].video != '' && allData[i].video != 'undefined' " class="plyer-row" > 
+            <img  src="img/backward.png" (click)="rewind()"/>
+            <img  *ngIf="status=='playimg'"  src="img/play.png"  (click)="play()" />
+            <img  *ngIf="status=='pauseimg'" src="img/stop.png" (click)="play()" />
+            <img   src="img/forward.png" (click)="forward()"/>
+            <img   class="volume-img" *ngIf="vol=='unmute'" src="img/volume.png"  (click)="volume()" />
+            <img  class="volume-img"  *ngIf="vol=='mute'" src="img/mute.png" (click)="volume()" />
+        </ion-row>
+      
+        <!-- <ion-row>
+        <a (click)="view(allData[i].ref_num,i)" class="response">{{titles.resp}}</a>
+        </ion-row> -->
+        <!-- <ion-row > 
+        <p  *ngFor="let rep of reply" style="color:black;width:100%;">{{rep.message}}</p><br>
+        </ion-row> -->
+        <ion-row [class] = "cssData[i].classInner"> 
+          <p  *ngFor="let rep of reply" class="reponse-us">
+              <span class="date">{{rep.date}}</span>
+              {{rep.message}}
+             <ion-row class="subject"> <span>{{rep.subject}}</span> </ion-row>
+            
+            </p>
+        </ion-row>
+        <div [class] = "cssData[i].classInner">
+          <div *ngFor="let imgeee of splitimages">
+            <div *ngFor="let imgee of imgeee.img">
+             <img *ngIf="imgee" src="http://kailash.mediaoncloud.com/MLAfiles/{{imgee}}" class="gal-img" />
+            </div>
+          </div>
+        </div>
+        <div [class] = "cssData[i].classInner" *ngFor="let repvideos of reply">
+          <ion-row class="video-main" >
+            <video *ngIf="repvideos.video != '' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{repvideos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>
+          </ion-row>
+          <ion-row *ngIf="repvideos.video != '' " class="plyer-row"> 
+              <img  src="img/backward.png" (click)="rewind()"/>
+              <img  *ngIf="status=='playimg'"  src="img/play.png"  (click)="play()" />
+              <img  *ngIf="status=='pauseimg'" src="img/stop.png" (click)="play()" />
+              <img   src="img/forward.png" (click)="forward()"/>
+              <img   class="volume-img"   *ngIf="vol=='unmute'" src="img/volume.png"  (click)="volume()" />
+              <img  class="volume-img"   *ngIf="vol=='mute'" src="img/mute.png" (click)="volume()" />
+          </ion-row>
+        </div>
+        
+      </ion-card-content>
+    </ion-card>
+</ion-row>
+</div>
+</div>
+
+<!-- search bar-->
+<ion-row *ngIf="enableIn == 'false'">
+    <ion-card class="rnumber1">
+    <ion-card-content>
+        <ion-row class="complaint-row1">
+         <h4>{{complaintname}}</h4>
+         <p>{{complaintdate}}</p>
+          </ion-row>
+          <ion-row >
+          <p class="para-complaint1">{{complnt}}</p>
+          </ion-row>
+          <ion-row *ngIf="allImage != '' ">
+          <img *ngFor="let img of allImage" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img1"/>
+          </ion-row>
+          <ion-row class="video-main">
+          <video  *ngIf="reply_video != '' && reply_video != 'undefined'" width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{reply_video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>
+          </ion-row>
+          <ion-row *ngIf="reply_video != '' && reply_video != 'undefined'" class="plyer-row" >  
+              <img  src="img/backward.png" (click)="rewind()"/>
+              <img  *ngIf="status=='playimg'"  src="img/play.png"  (click)="play()" />
+              <img  *ngIf="status=='pauseimg'" src="img/stop.png" (click)="play()" />
+              <img   src="img/forward.png" (click)="forward()"/>
+              <img   class="volume-img"   *ngIf="vol=='unmute'" src="img/volume.png"  (click)="volume()" />
+              <img  class="volume-img"   *ngIf="vol=='mute'" src="img/mute.png" (click)="volume()" />
+          </ion-row>
+          <!-- <ion-row>
+          <a (click)="viewrefdetail(refrenceno)" class="response1">{{titles.resp}}</a>
+          </ion-row> -->
+          <ion-row >
+           <p *ngFor="let reply of serachreply" class="reponse-us">
+              <span class="date">{{reply.date}}</span>
+              {{reply.message}}
+             <ion-row class="subject"> <span>{{reply.subject}}</span> </ion-row> 
+            </p>
+          </ion-row>
+             <div *ngFor="let img of splitimg">
+             <div *ngFor="let imge of img.imgg">
+               <img *ngIf="imge" src="http://kailash.mediaoncloud.com/MLAfiles/{{imge}}" class="gal-img1" />
+             </div>
+             </div>
+           <div *ngFor="let videos of serachreply">
+             <ion-row class="video-main">
+               <video *ngIf="videos.video != '' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{videos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>              
+             </ion-row>
+             <ion-row *ngIf="videos.video != '' " class="plyer-row"> 
+                <img  src="img/backward.png" (click)="rewind()"/>
+                <img  *ngIf="status=='playimg'"  src="img/play.png"  (click)="play()" />
+                <img  *ngIf="status=='pauseimg'" src="img/stop.png" (click)="play()" />
+                <img   src="img/forward.png" (click)="forward()"/>
+                <img   class="volume-img"   *ngIf="vol=='unmute'" src="img/volume.png"  (click)="volume()" />
+                <img  class="volume-img"   *ngIf="vol=='mute'" src="img/mute.png" (click)="volume()" />
+            </ion-row>
+          </div>
+          </ion-card-content>
+       </ion-card>
+     </ion-row>
+<div> 
+  <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p>
+</div>
+
+</ion-content>

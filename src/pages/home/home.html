@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar hideBackbutton="true">
+    <ion-title> {{titles.title}} {{titles.lastname}}<ion-icon md="ios-settings" (click)="setting()" style="float:right;"></ion-icon></ion-title>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url(img/gurudwara.jpg); background-size: cover;">
+<ion-grid class="first-row">  
+  <ion-row (click)="about()">
+    <ion-col col-7 class="col-one">
+      <p>{{titles.title}}<br/>{{titles.lastname}}</p>
+      <p class="p2">{{titles.Designation}}</p>
+    </ion-col>
+    <ion-col col-5 class="col-second">
+      <img src="img/photo.jpg"/>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid class="row-second">  
+  <ion-row >
+    <ion-col class="col-two" (click)="comp()">
+      <img src="img/p1.png"/>
+        <p>{{titles.complaint}} </p>
+    </ion-col>
+    <ion-col  class="padding-none ">
+    <ion-row class="right-sidetop" (click)="compinfo()">
+      <img src="img/p2.png"/><br/>
+        <p>{{titles.view}}<br/>{{titles.comp}}</p>
+    </ion-row>
+      <ion-row class="right-side" (click)="sugges()">
+        <img src="img/p3.png"/><br/>
+        <p>{{titles.sugges}}</p>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid class="last-grid" >  
+  <ion-row>
+    <ion-col col-7 class="third-col"  (click)="view_sugg()">
+      <ion-row><img src="img/p1.png"/><p>{{titles.viewsug}}</p></ion-row>
+    </ion-col>
+    <ion-col  col-5 class="fourth-col" (click)="gallery()">
+      <ion-row>
+          <img src="img/p5.png"/><p>{{titles.gallery}}</p>
+        </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-row class="last-div" (click)="constituent()">
+<img src="img/p6.png"/><p>{{titles.constituency}}</p>
+</ion-row>
+<!-- <ion-row class="first-row">
+  <button ion-button small><img src="img/Complaint_icon.png" (click)="comp()"/><p class="text">Complaint</p></button>
+  <button ion-button small><img src="img/viewcomplaint.png" (click)="compinfo()"/><p class="text">View Complaints</p></button>
+</ion-row>
+<ion-row class="">
+  <button ion-button small><img src="img/suggestion.png" (click)="sugges()"/><p class="text">Suggestion</p></button>
+  <button ion-button small><img src="img/gallery.png" (click)="gallery()"/><p class="text">Gallery</p></button>
+</ion-row>
+<ion-row class="">
+  <button ion-button small><img src="img/Faq.png" /><p class="text">FAQ</p></button>
+  <button ion-button small><img src="img/constitution.png" /><p class="text">Constituency</p></button>
+</ion-row> -->
+</ion-content>

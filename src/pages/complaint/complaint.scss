@@ -1,0 +1,128 @@
+page-complaint {
+
+    .button-inner img{    max-width: 100%;
+        border: 0;
+        height: 39px;
+        padding-right: 5px;
+    }
+    .button-inner{color:#fff;}
+    .toolbar-background-md {
+        border-color: #b2b2b2;
+        background: #5f6473;
+    }
+    .toolbar-title-md {
+        padding: 0 12px;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #fff;
+        
+    }
+    .item-color{
+        background-color: transparent;
+        height:60px;
+        margin: 0px;
+        padding: 0px;
+    }
+ion-row{
+    margin:1em 1em;
+}
+.row{
+    padding: 0px;
+    margin: 0;
+}
+.button-small-md {
+    height: 4.1em;
+    font-size: 1.3rem;
+    padding: 0 0.9em;
+    background-color: transparent;
+    margin-right: 16px;
+    width: 49%;
+    margin: 3px 0% 0.5% 0.5%;
+    border: 1px solid #000;
+   
+}
+.button-submit{
+    background-color: #f3aa1e;
+    border: none;
+    color: #000;
+    padding: 22px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    margin: 4px 0px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    -webkit-box-shadow: 1px 2px 6px 1px #333333;
+    box-shadow: 1px 2px 6px 1px #6b6b6b;
+    font-weight: 500;
+    margin-top: 15px;
+    border-radius: 0px;
+}
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+    color: #fff;
+    background-color: transparent;
+}
+
+      .custom-show{
+        display: block;
+    }
+    .custom-hide{
+        display: none;
+    }
+
+.background1{background-image: url(../img/back12.png);
+    background-size: cover;}
+    .first-row{border: 1px solid #1b1b1b;
+        margin: 6px 0px;}
+    .second-row select{    width: 100%;
+    padding:12px 0px;
+    background: transparent;
+    border: 1px solid #1b1b1b;
+    margin: 6px 0px;}
+
+.third-row textarea{    background: transparent;
+    border: 1px solid #000;}
+
+    input[type="text"]::-webkit-input-placeholder {
+  color: #000;
+}
+input[type="tel"]::-webkit-input-placeholder {
+    color: #000;
+  }
+   textarea::-webkit-input-placeholder {
+color: #000;
+}
+.plyer-row{width: 100%;
+    box-shadow: 0px 0px 10px 0px #727272;
+    padding: 5px 3px;
+    z-index: 4;
+    background: #e0e0e0;}
+    .plyer-row img{      height: 29px;
+        width: 34px;}
+    .plyer-row img.volume-img{    position: absolute;
+        right: 10%;
+        height: 22px;
+        width: 27px;
+        margin-top: 3px;
+    }
+.post-inner img{    width: 30px;
+    height: 30px;
+    margin: 0px 4px;}
+.video-main {
+background: #606060;
+box-shadow: 0px 0px 10px 0px #727272;
+}
+img.volume-img{    position: absolute;
+right: 10%;
+height: 20px;
+width: 26px;
+margin-top: 3px;
+}
+ion-card img {
+display: block;
+width: 20%;
+}  
+
+}

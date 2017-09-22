@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{titles.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p style="font-size:16px;font-weight:500;">{{titles.para}}</p>
+    <ion-row class="first-row">
+       <ion-input type="tel" maxlength="10" placeholder="{{titles.mob}}" [(ngModel)]="data.phone" name="data.phone"></ion-input>
+    </ion-row>
+    <button ion-button round outline block type="submit" class="button-submit" (click)="submit(data.phone)">{{titles.sub}}</button>
+    
+</ion-content>

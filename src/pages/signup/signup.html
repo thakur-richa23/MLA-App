@@ -1,0 +1,87 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding style="background-image: url(img/back.png); background-size: cover;">
+  <ion-row style="margin-bottom:30px;margin-top:10px;"><img src ="img/mlaLogo.png" class="image" /></ion-row>
+  <ion-row class="first-row">
+      <ion-input type="text" placeholder="Name" [(ngModel)]="data.name" name="data.name"></ion-input>
+  </ion-row > 
+  <ion-row class="first-row"> 
+  <ion-input type="tel" maxlength="10" [(ngModel)]="data.mobile" name="data.mobile" placeholder="Mobile Number" ></ion-input>
+  </ion-row>
+  <!-- <ion-row class="first-row"> 
+    <ion-input type="password" maxlength="8" minlength="6" [(ngModel)]="data.pass" name="data.pass" placeholder="Password" ></ion-input>
+  </ion-row> -->
+  <ion-row class="second-row">
+    <select  class="drop-down" placeholder="Select Area"  type="text" name="data.area" onmousedown="this.value='';" [(ngModel)]="data.area" (change)="areacategory(data.area)" >  
+      <option value="" disabled selected>Select Area</option>
+      <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>
+    </select>
+  </ion-row>
+      
+  <ion-row *ngIf="value == 'ward'" class="second-row">
+    <select class="drop-down" placeholder="Select Ward"  type="text" name="data.ward" onmousedown="this.value='';" [(ngModel)]="data.ward" (change)="wardcateg(data.ward)" >  
+      <option value="" disabled selected>Select Ward</option>
+      <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>
+    </select>
+  </ion-row>
+      
+  <ion-row [hidden] ='!value1' class="second-row">
+    <select class="drop-down" placeholder="Select Village"  type="text" name="data.Vill" onmousedown="this.value='';" [(ngModel)]="data.Vill" (change)="villagecat(data.Vill)" >  
+      <option value="" disabled selected>Select Village</option>
+      <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>
+    </select>
+  </ion-row>
+
+  <ion-row class="third-row">
+    <textarea [(ngModel)]="data.address" name="data.address" placeholder="Address"  rows="5" cols="50"></textarea>
+  </ion-row>
+
+  <ion-row class="first-row">
+    <ion-input type="email" [(ngModel)]="data.email" name="data.email" placeholder="Email(optional)"></ion-input>
+  </ion-row>
+
+  <button ion-button round outline block type="submit" class="button-submit" (click)="submit(data.name,data.mobile,data.area,data.ward,data.Vill,data.address,data.email)">SUBMIT</button>
+  <!-- <ion-row style="margin-bottom:20px;"><img src ="img/mlaLogo.png" class="image" /></ion-row>
+  <ion-item class="item-color">
+    <ion-input type="text" placeholder="Name" [(ngModel)]="data.name" name="data.name"></ion-input>
+  </ion-item>
+  <ion-item class="item-color">
+    <ion-input type="tel" maxlength="10" [(ngModel)]="data.mobile" name="data.mobile" placeholder="Mobile Number" ></ion-input>
+  </ion-item>
+ 
+  <ion-item class="item-color">
+    <select  class="drop-down" placeholder="Select Area"  type="text" name="data.area" onmousedown="this.value='';" [(ngModel)]="data.area" (change)="areacategory(data.area)" >  
+        <option value="" disabled selected>Select Area</option>
+      <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>
+    </select>
+</ion-item>
+
+<ion-item [hidden]="!value" class="item-color">
+<select   class="drop-down" placeholder="Select Ward"  type="text" name="data.ward" onmousedown="this.value='';" [(ngModel)]="data.ward" (change)="wardcateg(data.ward)" >  
+  <option value="" disabled selected>Select Ward</option>
+  <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>
+</select>
+</ion-item>
+
+<ion-item [hidden] ='!value1' class="item-color">
+    <select class="drop-down" placeholder="Select Village"  type="text" name="data.Vill" onmousedown="this.value='';" [(ngModel)]="data.Vill" (change)="villagecat(data.Vill)" >  
+      <option value="" disabled selected>Select Village</option>
+      <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>
+    </select>
+</ion-item>
+
+  <ion-item class="item-color">
+    <ion-textarea [(ngModel)]="data.address" name="data.address" placeholder="Address" ></ion-textarea>
+  </ion-item>
+  <ion-item class="item-color">
+    <ion-input type="email" [(ngModel)]="data.email" name="data.email" placeholder="Email"></ion-input>
+  </ion-item> -->
+
+  
+</ion-content>
