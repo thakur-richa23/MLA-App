@@ -37,7 +37,7 @@ this.storage.get('lang').then((lang) => {
 submit(phone){
   this.storage.get('ph_no').then((ph_no) => {
   this.user_phn = ph_no;
-  this.http.get("http://kailash.mediaoncloud.com/MLA/changePhone?phone=" +phone+ '&oldphone=' +this.user_phn).map(res => res.json()).subscribe(data => {
+  this.http.get("http://isp.mediaoncloud.com/MLA/changePhone?phone=" +phone+ '&oldphone=' +this.user_phn).map(res => res.json()).subscribe(data => {
     this.usrphn = data;
     if(this.usrphn.status != 'Failed'){
       this.toast.show(`Your Phone number changed successfully`, 'long', 'center').subscribe(

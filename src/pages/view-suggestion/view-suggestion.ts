@@ -9,10 +9,12 @@ import { Toast } from '@ionic-native/toast';
   templateUrl: 'view-suggestion.html',
 })
 export class ViewSuggestion {
+  apiurl:any;
   suggview:any = [];cssData: any = [];language:any;titles:any =[];titless:any =[];english: any =[];punjabi: any =[];
   userphne:any;userId:any;sugid:any;message:any;message1:any;
   constructor(public navCtrl: NavController, private loadingCtrl: LoadingController, public navParams: NavParams, public http:Http, private storage: Storage) {
-
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
+    
     this.english= {title: 'View Suggestion', name: 'Name', sugg: 'Suggestion', mobile:'Phone Number'};
     this.punjabi = {title: 'ਸੁਝਾਅ ਦੇਖੋ', name: 'ਨਾਮ', sugg: 'ਸਲਾਹ', mobile:'ਮੋਬਾਈਲ'};
     this.storage.get('lang').then((lang) => {
@@ -32,7 +34,7 @@ export class ViewSuggestion {
         content: '',
       });
       loadingPopup.present()
-    this.http.get("http://kailash.mediaoncloud.com/MLA/sugessionView?userid="+ this.userId).map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"sugessionView?userid="+ this.userId).map(res => res.json()).subscribe(data => {
       setTimeout(() => {
         if(data.status != 'Failed'){
           this.suggview= data; 

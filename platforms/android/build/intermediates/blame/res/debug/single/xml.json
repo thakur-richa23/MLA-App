@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\mediaoncloud\\Desktop\\MLAapp\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\config.xml",
+        "source": "C:\\Users\\mediaoncloud\\Desktop\\MLAapp\\platforms\\android\\res\\xml\\config.xml"
+    },
+    {
+        "merged": "C:\\Users\\mediaoncloud\\Desktop\\MLAapp\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\provider_paths.xml",
+        "source": "C:\\Users\\mediaoncloud\\Desktop\\MLAapp\\platforms\\android\\res\\xml\\provider_paths.xml"
+    }
+]

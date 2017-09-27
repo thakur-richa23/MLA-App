@@ -16,8 +16,10 @@ export class Signup {
   value:any;
   value1:any;
   priorityvalue:any;
+  apiurl:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public http:Http, private toast:Toast) {
-
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
+    
     this.data = [];
     this.data.name = '';
     this.data.mobile = '';
@@ -28,15 +30,15 @@ export class Signup {
     this.data.address = '';
     this.data.email = '';
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
     this.wardCategory= data;     
   })
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/selectArea").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"selectArea").map(res => res.json()).subscribe(data => {
     this.areatype= data;
   })
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/selectVillage").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {
     this.villagetype= data;
   })  
 }
@@ -52,7 +54,7 @@ export class Signup {
   }
  
   wardcateg(a){
-    this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
      
       for (let i = 0; i < data.length; i++) {
        if(data[i].id == a){
@@ -69,7 +71,7 @@ export class Signup {
 
   submit(name,mobile,area,ward,Vill,address,email){
     if(this.data.name != '' && this.data.mobile !='' && this.data.address != ''){
-      this.http.get("http://kailash.mediaoncloud.com/MLA/signup?id=&name=" +name+ '&phone=' +mobile+ '&area=' +area+ '&ward=' +ward+ '&village=' +Vill+ '&address=' +address+ '&email=' +email).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"signup?id=&name=" +name+ '&phone=' +mobile+ '&area=' +area+ '&ward=' +ward+ '&village=' +Vill+ '&address=' +address+ '&email=' +email).map(res => res.json()).subscribe(data => {
         this.signupData = data;
         if(this.signupData.status != 'Failed'){
           //alert("You have registered successfully");

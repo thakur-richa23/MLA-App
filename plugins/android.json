@@ -1,0 +1,84 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.synconset.imagepicker": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "com.vliesaputra.deviceinformation": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-facebook4": {
+            "APP_ID": "1323177091144812",
+            "APP_NAME": "MLA Dr Dharambir Agnihotri",
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-filepath": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-imeigetter": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-nativestorage": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "onesignal-cordova-plugin": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        },
+        "org.hygieiasoft.cordova.uid": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.mladragnihotri.com"
+        }
+    }
+}

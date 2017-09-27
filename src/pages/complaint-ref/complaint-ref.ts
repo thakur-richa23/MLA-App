@@ -8,11 +8,14 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'complaint-ref.html',
 })
 export class ComplaintRef {
+  apiurl:any;
   private search: any;searchItem: any;allvalue: any = [];cssData: any = [];complaintname: any;complnt: any;p_image: any;refrenceno:any;
   videos: any;image: any;video: any;message: any;buttonClicked: boolean = false;buttonClick: boolean = false;uniqueid: any;allImage: any = [];reply: any = [];
   replymsg: any = [];replyimage: any = [];replyimages: any = [];replyvideo: any;reply_video: any;IsHidden: any = true;searchTerm: any;
   searchdata: any;allvalues1: any;language:any;titles:any =[];english: any =[];punjabi: any =[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public storage: Storage) {
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";    
+    
     this.english= { resp: 'Response'};
     this.punjabi = { resp: 'ਜਵਾਬ'};
     this.storage.get('lang').then((lang) => {
@@ -28,7 +31,7 @@ export class ComplaintRef {
 
   viewrefdetail(a) {
     this.buttonClick = !this.buttonClick;
-      this.http.get("http://kailash.mediaoncloud.com/MLA/replyview?ref_num=" + a).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"replyview?ref_num=" + a).map(res => res.json()).subscribe(data => {
         this.reply = data;
         this.replymsg = data[0].message;
         this.replyimage = data[0].images;
@@ -40,7 +43,7 @@ export class ComplaintRef {
   onInput(searchTerm) {
     if (searchTerm.length >= 6) {
       this.buttonClicked = !this.buttonClicked;
-      this.http.get('http://kailash.mediaoncloud.com/MLA/complaintviewref?ref_num=' + searchTerm).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+'complaintviewref?ref_num=' + searchTerm).map(res => res.json()).subscribe(data => {
         this.complaintname = data[0].name;
         this.complnt = data[0].complaint;
         this.p_image = data[0].profile_img;

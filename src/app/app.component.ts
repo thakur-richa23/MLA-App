@@ -67,10 +67,13 @@ export class MyApp {
     // one signal notification
     this.oneSignal.startInit('c0c6e79e-0535-4dce-81ee-1dbee730dfe6', '267186828659');
     
-    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification );
     
-    this.oneSignal.handleNotificationReceived().subscribe(() => {
+    this.oneSignal.handleNotificationReceived().subscribe((data) => {
      // do something when notification is received
+      this.platform.ready().then(() => {
+        window.plugins.toast.show('Hi !You have notification: '+data.payload.body, "long", "center");
+      });
     });
     this.oneSignal.getIds().then((dviceid)=>{   
         this.storage.set('token_id', dviceid.userId); 

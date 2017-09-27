@@ -26,9 +26,12 @@ export class HomePage {
   fbuid:any;
   fbusId:any;
   typefb:any;
+  apiurl:any;
   constructor(public navCtrl: NavController, public platform:Platform, public http:Http, public navParams: NavParams, public storage: Storage) {  
     this.english= { title: 'Dr. Dharambir', lastname: 'Agnihotri', Designation: 'MLA of Tarn Taran', complaint: 'Complaints', view: 'View', comp: 'Complaint', sugges: 'Suggestion', viewsug: 'View Suggestion', gallery: 'Gallery', constituency: 'Constituency' };
     this.punjabi = { title: 'ਡਾਕਟਰ ਧਰਮਵੀਰ ', lastname: 'ਅਗਨੀਹੋਤਰੀ', Designation: 'ਐਮ ਐਲ ਏ (ਤਰਨ ਤਾਰਨ)', complaint: 'ਸਕਾਇਤ', view: 'ਦੇਖੋ ',comp: 'ਸਕਾਇਤ', sugges: 'ਸਲਾਹ', viewsug: 'ਸਲਾਹ ਦੇਖੋ', gallery: 'ਤਸਵੀਰਾਂ', constituency: 'ਚੋਣ ਖੇਤਰ'  };
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
+    
     this.storage.get('lang').then((lang) => {
       this.language= lang;
       if(this.language == 'english'){
@@ -44,7 +47,7 @@ export class HomePage {
     this.fbName = this.navParams.get('name');
     this.fbuid = this.navParams.get('usrid');
     if(this.fbtype){
-      this.http.get("http://kailash.mediaoncloud.com/MLA/fblogin?fbusername=" + this.fbName + '&fbuserid=' + this.fbuid + '&type=' +this.fbtype).map(res =>res.json()).subscribe(data =>{
+      this.http.get(this.apiurl+"fblogin?fbusername=" + this.fbName + '&fbuserid=' + this.fbuid + '&type=' +this.fbtype).map(res =>res.json()).subscribe(data =>{
         this.fbresponse = data;
         this.storage.set('Uid', this.fbresponse.id); 
         this.storage.set('username', this.fbresponse.fbusername);
@@ -57,7 +60,7 @@ export class HomePage {
       this.UserId = Uid;
       this.storage.get('token_id').then((token_id) => {
       this.tokenid= token_id;
-      this.http.get("http://kailash.mediaoncloud.com/MLA/saveToken?user_id=" + this.UserId + '&token=' +this.tokenid).map(res =>res.json()).subscribe(data =>{
+      this.http.get(this.apiurl+"saveToken?user_id=" + this.UserId + '&token=' +this.tokenid).map(res =>res.json()).subscribe(data =>{
       this.tokenRec = data;
       })
     }); 

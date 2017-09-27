@@ -21,9 +21,9 @@
    <ion-row class="first-row">
       <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="usrname" name="usrname"></ion-input>
     </ion-row>
-    <ion-row class="first-row">
+    <!-- <ion-row class="first-row" >
         <ion-input type="tel" maxlength="10" placeholder="{{titles.mobile}}"  [(ngModel)]="p_no" name="p_no"></ion-input>
-    </ion-row>
+    </ion-row> -->
     <ion-row class="first-row">
         <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addvalue" name="addvalue"></ion-input>
     </ion-row>
@@ -36,14 +36,14 @@
     </select>
 </ion-row>
 
-<ion-row *ngIf="value == 'ward'" class="second-row">
+<ion-row *ngIf="value == 'ward' || (Areaa=='Tarn Taran City')" class="second-row">
   <select class="drop-down" type="text" name="catward" onmousedown="this.value='';" [(ngModel)]="catward" (change)="wardcategory(catward)">  
     <option value="" disabled selected>{{titles.ward}}</option>
     <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>
   </select>
 </ion-row>
-
-<ion-row [hidden]='!value1' class="second-row">
+<!-- [hidden]='!value1' -->
+<ion-row  *ngIf="value=='village' || (Areaa=='Tarn Taran Village')" class="second-row">
   <select class="drop-down" type="text" name="areavill" onmousedown="this.value='';" [(ngModel)]="areavill" (change)="villagecat(areavill)">  
     <option value="" disabled selected>{{titles.village}}</option>
     <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>
@@ -62,5 +62,5 @@
       </select>
     </ion-row>
   
-  <button ion-button block outline type="submit" class="button-submit" (click)="submit(usrname,p_no,addvalue,Areaa,catward,areavill,Email,gender)">Save Profile</button>
+  <button ion-button block outline type="submit" class="button-submit" (click)="submit(usrname,addvalue,Areaa,catward,areavill,Email,gender)">Save Profile</button>
 </ion-content>

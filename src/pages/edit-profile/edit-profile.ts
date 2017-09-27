@@ -11,11 +11,14 @@ import { HomePage } from '../home/home';
   templateUrl: 'edit-profile.html',
 })
 export class EditProfile {
+  apiurl:any;
 data:any;profile:any;fprof:any;phone_no:any;Email:any;catward:any;add:any;p_no:any;addvalue:any;areavill:any;saveprofile:any;Areaa:any;
 language:any;titles:any =[];english: any =[];punjabi: any =[];usrname:any;wardCategory:any =[];priority:any=[];
 issuetype:any =[];areatype:any=[];villagetype:any=[];value:any;value1:any;priorityvalue:any;f_type:any;facebookid:any;facid:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private toast:Toast,public http: Http, private storage:Storage) {
-   this.data = {};
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";    
+    
+    this.data = {};
    this.english= { name: 'Name', area: 'Area', ward: 'Ward', village: 'Village', address: 'Address', complainagainst: 'Complaint against', complaint: 'Complaint', mobile: 'Mobile', email: 'Email', submit: 'Submit', gender: 'Gender', selectGen: 'Select Gender', Female: 'Female', male: 'Male', optional:'Optional', saveprof:'Save profile', title: 'Dr. Dharambir Agnihotri', Designation: 'MLA of Tarn Taran'};
    this.punjabi = { name: 'ਨਾਮ', area: 'ਖੇਤਰ', ward: 'ਵਾਰਡ', village: 'ਪਿੰਡ', address: 'ਪਤਾ', complainagainst: 'ਸ਼ਿਕਾਇਤ ਵਿਰੁੱਧ ', complaint: 'ਸ਼ਿਕਾਇਤ', mobile: 'ਮੋਬਾਈਲ', email: 'ਈ - ਮੇਲ', submit: 'ਜਮ੍ਹਾਂ ਕਰੋ', gender: 'ਲਿੰਗ', selectGen: 'ਲਿੰਗ ਚੁਣੋ', Female: 'ਔਰਤ', male: 'ਮਰਦ', optional:'ਵਿਕਲਪਿਕ', saveprof:'Save profile', title: 'ਡਾਕਟਰ ਧਰਮਵੀਰ ਅਗਨੀਹੋਤਰੀ ', Designation: 'ਐਮ ਐਲ ਏ (ਤਰਨ ਤਾਰਨ)'};
    this.storage.get('lang').then((lang) => {
@@ -28,23 +31,23 @@ issuetype:any =[];areatype:any=[];villagetype:any=[];value:any;value1:any;priori
      console.log(this.titles);
    })
 
-   this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+   this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
     this.wardCategory= data;
    
 })
 
-this.http.get("http://kailash.mediaoncloud.com/MLA/issueType").map(res => res.json()).subscribe(data => {
+this.http.get(this.apiurl+"issueType").map(res => res.json()).subscribe(data => {
   this.issuetype= data;
 })
 
 
-this.http.get("http://kailash.mediaoncloud.com/MLA/selectArea").map(res => res.json()).subscribe(data => {
+this.http.get(this.apiurl+"selectArea").map(res => res.json()).subscribe(data => {
 this.areatype= data;
 console.log(this.areatype);
 })
 
 
-this.http.get("http://kailash.mediaoncloud.com/MLA/selectVillage").map(res => res.json()).subscribe(data => {
+this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {
 this.villagetype= data;
 
 })  
@@ -54,7 +57,7 @@ this.storage.get('facebooktype').then((facebooktype) => {
   if(this.f_type != 'facebook'){
     this.storage.get('ph_no').then((ph_no) => {
       this.phone_no = ph_no;
-      this.http.get("http://kailash.mediaoncloud.com/MLA/get_profile?user_id=" + this.phone_no).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"get_profile?user_id=" + this.phone_no).map(res => res.json()).subscribe(data => {
        this.profile = data.name;
        this.storage.set("username", this.profile);
        this.storage.get('username').then((username) => {
@@ -72,7 +75,7 @@ this.storage.get('facebooktype').then((facebooktype) => {
   if(this.f_type == 'facebook'){
     this.storage.get('Uid').then((Uid) => {
       this.facebookid = Uid;
-      this.http.get("http://kailash.mediaoncloud.com/MLA/fblogin_profile?fbuserid=" + this.facebookid).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"fblogin_profile?fbuserid=" + this.facebookid).map(res => res.json()).subscribe(data => {
        this.fprof = data.name;
        this.storage.set("username", this.fprof);
        this.storage.get('username').then((username) => {
@@ -93,15 +96,16 @@ this.storage.get('facebooktype').then((facebooktype) => {
 areacategory(x){
   if (x == 'Tarn Taran City') {
     this.value = 'ward'; 
-    this.value1 = '';
+    
+    //this.value1 = '';
   } else if (x == 'Tarn Taran Village'){
-    this.value = '';
-    this.value1 = 'village'; 
+    this.value = 'village';
+  //  this.value1 = 'village'; 
   }
 }
 
 wardcategory(a){
-  this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+  this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
     for (let i = 0; i < data.length; i++) {
      if(data[i].id == a){
        console.log(data[i].priority);
@@ -119,10 +123,10 @@ editprofile(){
   this.navCtrl.push(Setting);
 
 }
-  submit(profile,p_no,addvalue,Areaa,catward,areavill,Email,gender){
+  submit(profile,addvalue,Areaa,catward,areavill,Email,gender){
   this.storage.get('Uid').then((Uid) => {
     this.facid = Uid;
-    this.http.get("http://kailash.mediaoncloud.com/MLA/update_profile?name=" +profile + '&phone=' + p_no + '&address=' + addvalue + '&area=' +Areaa+  '&ward=' + catward + '&village=' + areavill +'&gender=' +gender + '&email=' +Email+ '&id=' +this.facid).map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"update_profile?name=" +profile + '&address=' + addvalue + '&area=' +Areaa+  '&ward=' + catward + '&village=' + areavill +'&gender=' +gender + '&email=' +Email+ '&id=' +this.facid).map(res => res.json()).subscribe(data => {
       this.saveprofile = data;
       console.log(this.saveprofile);
       if(this.saveprofile.Status == 'Success') {

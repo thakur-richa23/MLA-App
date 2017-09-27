@@ -9,11 +9,13 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'gallery.html',
 })
 export class Gallery {
+  apiurl:any;
   slideData:any =[];slideData1:any =[];fb_res:any =[];fb_res1:any=[];items =[];allImages = [];imagesoffset : any;item=[];load:any;
   newmoviesoffset:any;moviesOffset:any;language:any;titles:any =[];english: any =[];punjabi: any =[];
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,private iab: InAppBrowser, public http: Http,public alertCtrl: AlertController, private loadingCtrl: LoadingController) {
     //this.slideData = [{ image: 'img/slide1.jpg'},{ image: 'img/slide2.jpg'},{ image: 'img/slide3.jpg'}]
-      this.fb_api();
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
+    this.fb_api();
       this.fb_pagination();
       this.english= {gallery: 'Gallery'};
       this.punjabi = {gallery: 'ਤਸਵੀਰਾਂ'};
@@ -27,14 +29,14 @@ export class Gallery {
         console.log(this.titles);
       })
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/fbApiShowAll").map(res =>res.json()).subscribe(data =>{
+    this.http.get(this.apiurl+"fbApiShowAll").map(res =>res.json()).subscribe(data =>{
     this.fb_res = 60 / 10;
     console.log(this.fb_res);
   })
   }
 
   fb_api(){
-    this.http.get("http://kailash.mediaoncloud.com/MLA/fbApi").map(res =>res.json()).subscribe(data =>{
+    this.http.get(this.apiurl+"fbApi").map(res =>res.json()).subscribe(data =>{
       this.fb_res = data;
       console.log(this.fb_res);
      })
@@ -47,7 +49,7 @@ export class Gallery {
         content: '',
       });
       loadingPopup.present()
-    this.http.get("http://kailash.mediaoncloud.com/MLA/fbApi?page=" + offsetlimit).map(res =>res.json()).subscribe(data =>{
+    this.http.get(this.apiurl+"fbApi?page=" + offsetlimit).map(res =>res.json()).subscribe(data =>{
       setTimeout(() => {
         this.items = data;
         loadingPopup.dismiss();
@@ -77,7 +79,7 @@ export class Gallery {
         content: '',
       });
       loadingPopup.present()
-      this.http.get("http://kailash.mediaoncloud.com/MLA/fbApi?page=" + this.newmoviesoffset).map(res =>res.json()).subscribe(data =>{
+      this.http.get(this.apiurl+"fbApi?page=" + this.newmoviesoffset).map(res =>res.json()).subscribe(data =>{
         if(data.status != 'Failed')
           {
               this.item = data;

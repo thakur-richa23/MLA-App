@@ -21,6 +21,7 @@ declare var cordova: any;
   templateUrl: 'complaint.html',
 })
 export class Complaint {
+  apiurl:any;
   data:any;mulImages:any = [];uniqueid:any;response:any;lastImage:any;loading:any;usrid:any;fileTransfer:any;videourl:any;
   @ViewChild('myvideo') myVideo: any;videoUrl:any;videoUrlPath : any;postResponse:any =[];videosec:any;imageUrl:any =[];imageUrlpath : any = [];imageUrlTest : any =[];
   targetPath:any;url:any;filename:any;urlImage:any;images:any;videos:any;postRes:any=[];wardCategory:any =[];priority:any=[];issuetype:any =[];
@@ -28,6 +29,7 @@ export class Complaint {
   videoshow:any;language:any;titles:any =[];english: any =[];punjabi: any =[];phone_no:any;profile:any;p_no:any;addvalue:any;Areaa:any;
   catward:any;areavill:any;Email:any;userId:any;uid:any;comfac_type:any;fid:any;vol:any;status:any;video:any;
   constructor(public navCtrl: NavController, private toast: Toast, private storage: Storage, private imagePicker: ImagePicker, private mediaCapture: MediaCapture, public zone: NgZone, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public platform: Platform,public navParams: NavParams,public http: Http, public loadingCtrl: LoadingController, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController) {
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
     this.status='playimg';
     this.vol='mute';
     
@@ -62,7 +64,7 @@ export class Complaint {
     if(this.comfac_type != 'facebook'){
       this.storage.get('ph_no').then((ph_no) => {
         this.phone_no = ph_no;
-        this.http.get("http://kailash.mediaoncloud.com/MLA/get_profile?user_id=" + this.phone_no).map(res => res.json()).subscribe(data => {
+        this.http.get(this.apiurl+"get_profile?user_id=" + this.phone_no).map(res => res.json()).subscribe(data => {
         this.profile = data.name;
         this.p_no = data.phone;
         this.addvalue = data.address;
@@ -76,7 +78,7 @@ export class Complaint {
     if(this.comfac_type == 'facebook'){
         this.storage.get('Uid').then((Uid) => {
         this.fid = Uid;
-        this.http.get("http://kailash.mediaoncloud.com/MLA/fblogin_profile?fbuserid=" + this.fid).map(res => res.json()).subscribe(data => {
+        this.http.get(this.apiurl+"fblogin_profile?fbuserid=" + this.fid).map(res => res.json()).subscribe(data => {
         this.profile = data.name;
         this.p_no = data.phone;
         this.addvalue = data.address;
@@ -90,20 +92,20 @@ export class Complaint {
    
 })
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
       this.wardCategory= data;   
   })
 
-    this.http.get("http://kailash.mediaoncloud.com/MLA/issueType").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"issueType").map(res => res.json()).subscribe(data => {
       this.issuetype= data;
   })
 
-  this.http.get("http://kailash.mediaoncloud.com/MLA/selectArea").map(res => res.json()).subscribe(data => {
+  this.http.get(this.apiurl+"selectArea").map(res => res.json()).subscribe(data => {
     this.areatype= data;
     console.log(this.areatype);
   })
 
-  this.http.get("http://kailash.mediaoncloud.com/MLA/selectVillage").map(res => res.json()).subscribe(data => {
+  this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {
     this.villagetype= data;
   })  
 
@@ -126,7 +128,7 @@ export class Complaint {
   }
 
   wardcategory(a){
-    this.http.get("http://kailash.mediaoncloud.com/MLA/wardview").map(res => res.json()).subscribe(data => {
+    this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
       for (let i = 0; i < data.length; i++) {
        if(data[i].id == a){
          console.log(data[i].priority);
@@ -209,7 +211,7 @@ public takePicture(sourceType){
 private copyFileToLocalDirMul(imagePath, imageName, newFileName,i) {
   this.file.copyFile(imagePath, imageName, cordova.file.dataDirectory, newFileName).then(success => {
     this.lastImage = newFileName;
-    var url = "http://kailash.mediaoncloud.com/MLA/saveImage";
+    var url = this.apiurl+"saveImage";
      // File for Upload
      var targetPath = this.pathForImage(this.lastImage);
      // File name only
@@ -230,7 +232,7 @@ private copyFileToLocalDirMul(imagePath, imageName, newFileName,i) {
      this.fileTransfer.upload(targetPath, url, options).then(data => { 
        let newImg;
        let newImgPath;
-       newImg = 'http://kailash.mediaoncloud.com/MLAfiles/'+ filename;
+       newImg = 'http://isp.mediaoncloud.com/MLAfiles/'+ filename;
        newImgPath = filename;
       this.imageUrl.push(newImg);
       this.imageUrlpath.push(newImgPath);
@@ -249,7 +251,7 @@ private copyFileToLocalDirMul(imagePath, imageName, newFileName,i) {
 private copyFileToLocalDir(imagePath, imageName, newFileName) {
    this.file.copyFile(imagePath, imageName, cordova.file.dataDirectory, newFileName).then(success => {
      this.lastImage = newFileName;
-     var url = "http://kailash.mediaoncloud.com/MLA/saveImage";
+     var url = this.apiurl+"saveImage";
       // File for Upload
       var targetPath = this.pathForImage(this.lastImage);
       // File name only
@@ -270,7 +272,7 @@ private copyFileToLocalDir(imagePath, imageName, newFileName) {
       this.fileTransfer.upload(targetPath, url, options).then(data => { 
         let newImg;
         let newImgPath;
-        newImg = 'http://kailash.mediaoncloud.com/MLAfiles/'+ filename;
+        newImg = 'http://isp.mediaoncloud.com/MLAfiles/'+ filename;
         newImgPath = filename;
        this.imageUrl.push(newImg);
        this.imageUrlpath.push(newImgPath);
@@ -327,7 +329,7 @@ public pathForImage(img) {
       x= n + ".mp4";
       this.file.copyFile(correctPath, currentName, cordova.file.dataDirectory,x).then(success => {
         this.lastImage = x;
-        var url = "http://kailash.mediaoncloud.com/MLA/saveVideo";
+        var url = this.apiurl+"saveVideo";
          // File for Upload
          var targetPath = this.pathForImage(this.lastImage);    
          // File name only
@@ -345,7 +347,7 @@ public pathForImage(img) {
          this.loading.present();
          // Use the FileTransfer to upload the image
          this.fileTransfer.upload(targetPath, url, options).then(data => {   
-          this.videoUrl = 'http://kailash.mediaoncloud.com/MLAfiles/'+ x;
+          this.videoUrl = 'http://isp.mediaoncloud.com/MLAfiles/'+ x;
           this.videoUrlPath =  x;  
           this.loading.dismissAll();
          this.presentToast('video succesful uploaded.');
@@ -375,7 +377,7 @@ public pathForImage(img) {
       // Create a request option
       let options = new RequestOptions({ headers: headers });
       if(usrname != '' && usrphone !='' && complaint !=''){
-        this.http.post('http://kailash.mediaoncloud.com/MLA/complaint', bodyString, options).map(res => res.json()).subscribe(data => {
+        this.http.post(this.apiurl+'complaint', bodyString, options).map(res => res.json()).subscribe(data => {
           this.postRes = data;
           this.postResponse = data.refference;
           this.storage.set('ref_no', this.postResponse);

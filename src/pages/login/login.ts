@@ -19,8 +19,11 @@ FB_APP_ID: number = 1323177091144812;data:any;loginData:any;
 usrid:any;
 loginphone:any;userOtp:any;y:any;otpmsg:any;
 language:any;titles:any =[];english: any =[];punjabi: any =[];
+apiurl:any;
   constructor(public navCtrl: NavController,public fb: Facebook, private loadingCtrl: LoadingController, public alertCtrl: AlertController, public nativeStorage: NativeStorage, private storage: Storage, public navParams: NavParams, public http:Http, private toast:Toast) {
     this.data = [];
+    this.apiurl="http://isp.mediaoncloud.com/MLA/";
+    
     this.data.mobile = '';
     this.data.pass = '';
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
@@ -39,7 +42,7 @@ language:any;titles:any =[];english: any =[];punjabi: any =[];
   }
 
   submit(mobile){
-
+    this.storage.set('otp','');
     this.y = Math.floor((Math.random() * 10000) + 100);
     //https://control.msg91.com/api/sendotp.php?authkey=173850Ao6KnC5659b3a974&mobile='+mobile+'&message=YOUR%20MLA%20APP%20OTP%20is%20'+this.x+'&otp=' + this.x
     this.http.get('https://2factor.in/API/V1/882ceda6-9df5-11e7-94da-0200cd936042/SMS/'+ mobile +'/' + this.y).map(res => res.json()).subscribe(data => {
@@ -63,9 +66,8 @@ language:any;titles:any =[];english: any =[];punjabi: any =[];
               {
                 text: 'Submit',
                 handler: data => {
-                  console.log(data.otp)
                   if(this.userOtp == data.otp){
-                    this.http.get("http://kailash.mediaoncloud.com/MLA/login?phone=" +mobile).map(res => res.json()).subscribe(data => {                    
+                    this.http.get(this.apiurl+"login?phone=" +mobile).map(res => res.json()).subscribe(data => {                    
                     this.loginData = data;
                     this.loginphone = data.phone;
                     this.storage.set('Uid', this.loginData.id); 
@@ -83,7 +85,7 @@ language:any;titles:any =[];english: any =[];punjabi: any =[];
                         //alert("Invalid Details");
                         this.toast.show(`Invalid Details`, 'long', 'center').subscribe(
                           toast => {
-                            console.log(toast);
+                           
                         });
                       }
                 

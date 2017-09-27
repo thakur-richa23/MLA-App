@@ -63,8 +63,9 @@ export class ComplaintInfo {
   vol:any;
   status:any;
   videoshow:any;
+  apiurl:any;
   constructor(public navCtrl: NavController,private loadingCtrl: LoadingController, private network: Network, public navParams: NavParams, private storage: Storage, public http: Http, public platform:Platform) {
-   
+   this.apiurl="http://isp.mediaoncloud.com/MLA/";    
    this.enableIn = true;
    this.status='playimg';
    this.vol='mute';
@@ -99,7 +100,7 @@ this.network.onConnect().subscribe(()=> {
       content: '',
     });
       loadingPopup.present()
-        this.http.get("http://kailash.mediaoncloud.com/MLA/complaintview?userid=" +this.userId).map(res => res.json()).subscribe(data => {
+        this.http.get(this.apiurl+"complaintview?userid=" +this.userId).map(res => res.json()).subscribe(data => {
          setTimeout(() => {
             if(data.status != 'Failed')
               {
@@ -161,7 +162,7 @@ this.network.onConnect().subscribe(()=> {
             this.cssData[i].class = 'custom-hide';
         }
       }      
-      this.http.get("http://kailash.mediaoncloud.com/MLA/replyview?ref_num=" +b).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"replyview?ref_num=" +b).map(res => res.json()).subscribe(data => {
         this.reply = data;
        // alert(JSON.stringify(this.reply));
        this.splitimages= [];
@@ -194,7 +195,7 @@ this.network.onConnect().subscribe(()=> {
   onInput(searchTerm) {
     if (searchTerm.length >= 6) {
       this.enableIn = 'false';
-      this.http.get('http://kailash.mediaoncloud.com/MLA/complaintviewref?ref_num=' + searchTerm).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+'complaintviewref?ref_num=' + searchTerm).map(res => res.json()).subscribe(data => {
         this.complaintname = data[0].name;
         this.complaintdate = data[0].date;
         this.complnt = data[0].complaint;
@@ -203,7 +204,7 @@ this.network.onConnect().subscribe(()=> {
         this.allImage = this.p_image.split(",");
         this.reply_video = data[0].video;
       
-      this.http.get("http://kailash.mediaoncloud.com/MLA/replyview?ref_num=" + this.refrenceno).map(res => res.json()).subscribe(data => {
+      this.http.get(this.apiurl+"replyview?ref_num=" + this.refrenceno).map(res => res.json()).subscribe(data => {
         this.serachreply = data;
         for(let i = 0; i < data.length; i++){
           if(data[i].images != ''){
