@@ -27414,3 +27414,88 @@ page-view-suggestion .custom-show {
 page-view-suggestion .custom-hide {
   display: none;
 }
+
+page-view-suggestion ion-icon {
+  display: inline-block;
+  font-size: 2.2em;
+  position: relative;
+  top: 2px;
+  left: 135px;
+}
+
+page-view-suggestion .custom-show {
+  display: block;
+}
+
+page-view-suggestion .custom-hide {
+  display: none;
+}
+
+page-view-suggestion .displayclss {
+  display: none;
+}
+
+page-view-suggestion .custom-odd {
+  background-color: #5f6473;
+}
+
+page-view-suggestion .custom-even {
+  background-color: #f7696b;
+}
+
+page-view-suggestion .row-main {
+  background-color: #e47756;
+  -webkit-box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+page-view-suggestion .row-main p {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 21px;
+  padding: 7px 0px 0px;
+  font-weight: 200;
+  margin: 0px;
+}
+
+page-view-suggestion .row-main p.mobile-row {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  margin: 0px 0px 28px;
+  font-weight: 200;
+  padding: 4px 0px;
+}
+
+page-view-suggestion .row-main p.mobile-row img {
+  height: 18px;
+  margin: -2px 5px;
+}
+
+page-view-suggestion .down-icons {
+  font-size: 28px;
+  color: #e47756;
+  border: 2px solid #e47756;
+  background-color: #fff;
+  border-radius: 50%;
+  height: 34px;
+  width: 35px;
+  padding: 3px 6px;
+  position: absolute;
+  left: 44%;
+  bottom: -8px;
+  -webkit-box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+page-view-suggestion .arrow-row {
+  margin: auto;
+  position: relative;
+}
+
+page-view-suggestion .drop-background {
+  background-color: #D8D8D8;
+  text-align: center;
+}

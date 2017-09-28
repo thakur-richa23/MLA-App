@@ -10,7 +10,7 @@
 <ion-searchbar *ngIf="buttonClicked" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchTerm)" ></ion-searchbar>
 <div *ngIf= "enableIn == true">
 <div *ngIf="allData">
-<ion-row *ngFor="let data of allData; let i= index" class="rnumber {{cssDataColor[i].class}}" >
+<ion-row *ngFor="let data of allData; let i= index" class="rnumber {{cssDataColor[i].class}}">
   <span>{{allData[i].ref_num}}</span><a (click)="view_detail(i, allData[i].ref_num)" href="#">{{titles.viewdetail}}</a>
   <ion-card [class] = "cssData[i].class">
       <ion-card-content>
@@ -28,7 +28,7 @@
         <video *ngIf="allData[i].video != '' && allData[i].video != 'undefined' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{allData[i].video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>  
         </ion-row>
         <ion-row *ngIf="allData[i].video != '' && allData[i].video != 'undefined' " class="plyer-row" > 
-            <img  src="img/backward.png" (click)="rewind()"/>
+            <img src="img/backward.png" (click)="rewind()"/>
             <img  *ngIf="status=='playimg'"  src="img/play.png"  (click)="play()" />
             <img  *ngIf="status=='pauseimg'" src="img/stop.png" (click)="play()" />
             <img   src="img/forward.png" (click)="forward()"/>

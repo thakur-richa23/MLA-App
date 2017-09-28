@@ -129,7 +129,6 @@ this.network.onConnect().subscribe(()=> {
                   this.allvideo1.push({video});
                 }
               }else{
-                
                 this.english= { message2: "There is no Complaints"};
                 this.punjabi = { message2: "ਕੋਈ ਸ਼ਿਕਾਇਤ ਨਹੀਂ ਹੈ"};
                 this.storage.get('lang').then((lang) => {
@@ -164,7 +163,6 @@ this.network.onConnect().subscribe(()=> {
       }      
       this.http.get(this.apiurl+"replyview?ref_num=" +b).map(res => res.json()).subscribe(data => {
         this.reply = data;
-       // alert(JSON.stringify(this.reply));
        this.splitimages= [];
        for(let i = 0; i < data.length; i++){
          if(data[i].images != ''){

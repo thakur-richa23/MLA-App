@@ -107,13 +107,13 @@ villagecat(b){
   backbtn(){
     this.navCtrl.push(HomePage);
   }
-
-  submit(name,suggestion,mobile,area,ward,village,addres){
+ 
+  submit(name,addres,area,ward,village,suggestion,mobile){
     this.storage.get('Uid').then((Uid) => {
       this.userId = Uid;
       this.storage.get('unique_no').then((unique_no) => {
         this.uniqueid = unique_no;
-      var bodyString = 'id= &name=' +name + '&sugession=' + suggestion+ '&mobile=' +mobile + '&uuid=' +this.uniqueid + '&userid=' +this.userId+'&area='+area+'&address='+addres+'&ward='+ward+'&village='+village;
+      var bodyString = 'id= &name=' +name + '&uuid=' +this.uniqueid + '&userid=' +this.userId + '&sugession=' + suggestion+ '&mobile=' +mobile + '&area='+ area + '&address='+ addres + '&ward='+ ward + '&village='+village;
       // Set content type to JSON
       var headers = new Headers();
       headers.append("Accept", 'application/x-www-form-urlencoded');
@@ -128,18 +128,15 @@ villagecat(b){
           this.toast.show(`Your suggestion submitted successfully`, 'long', 'center').subscribe(
             toast => {
               console.log(toast);
-            }
-          );
+            });
           this.navCtrl.setRoot(HomePage);
       }else{
          //alert("Your Suggestion is not submitted. Please try again");
           this.toast.show(`Your suggetsion is not submitted. Please try again`, 'long', 'center').subscribe(
             toast => {
               console.log(toast);
-            }
-          );
+            });
       }
-      console.log(this.suggestionRes);
     })
   })
 })

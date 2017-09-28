@@ -28,28 +28,22 @@ issuetype:any =[];areatype:any=[];villagetype:any=[];value:any;value1:any;priori
      }else{
        this.titles = this.punjabi;
      }
-     console.log(this.titles);
    })
 
-   this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
-    this.wardCategory= data;
-   
+this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
+  this.wardCategory= data;
 })
 
 this.http.get(this.apiurl+"issueType").map(res => res.json()).subscribe(data => {
   this.issuetype= data;
 })
 
-
 this.http.get(this.apiurl+"selectArea").map(res => res.json()).subscribe(data => {
 this.areatype= data;
-console.log(this.areatype);
 })
-
 
 this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {
 this.villagetype= data;
-
 })  
 
 this.storage.get('facebooktype').then((facebooktype) => {
@@ -108,7 +102,6 @@ wardcategory(a){
   this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
     for (let i = 0; i < data.length; i++) {
      if(data[i].id == a){
-       console.log(data[i].priority);
        this.priorityvalue = data[i].priority;
      }    
   }  
@@ -128,7 +121,6 @@ editprofile(){
     this.facid = Uid;
     this.http.get(this.apiurl+"update_profile?name=" +profile + '&address=' + addvalue + '&area=' +Areaa+  '&ward=' + catward + '&village=' + areavill +'&gender=' +gender + '&email=' +Email+ '&id=' +this.facid).map(res => res.json()).subscribe(data => {
       this.saveprofile = data;
-      console.log(this.saveprofile);
       if(this.saveprofile.Status == 'Success') {
         //alert("Profile Updated Successfully");
         this.toast.show(`Profile Updated Successfully`, 'long', 'center').subscribe(

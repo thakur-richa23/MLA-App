@@ -51,6 +51,5 @@
   <ion-row class="first-row">
     <ion-input type="tel" maxlength="10" [(ngModel)]="p_no" name="p_no" placeholder="{{titles.mob}}"></ion-input>
   </ion-row>
- 
-  <button ion-button round outline block type="submit" class="button-submit" (click)="submit(profile,data.suggestion,p_no,areasel,catward,areavill,addresss)">{{titles.sub}}</button>
+  <button ion-button round outline block type="submit" class="button-submit" (click)="submit(profile,addresss,areasel,wardsel,villsel,data.suggestion,p_no)">{{titles.sub}}</button>
 </ion-content>

@@ -5,12 +5,36 @@
 </ion-header>
 
 <ion-content padding style="background-color:#f9e7cf;">
-   <ion-card *ngFor="let sugg of suggview">
-     <ion-card-content class="view-sug">
-      <p > <span>{{titles.name}}</span> : {{sugg.name}}</p>
-      <p > <span>{{titles.sugg}}</span> : {{sugg.sugession}}</p>
-      <p > <span>{{titles.mobile}}</span> : {{sugg.mobile}}</p>
-     </ion-card-content>
-   </ion-card>
+   <!-- <ion-card *ngFor="let sugg of suggview; let i= index">
+      <ion-card-content class="view-sug">
+        <p><span>{{titles.name}}</span> : {{suggview[i].name}}</p>
+        <p><span>{{titles.sugg}}</span> : {{suggview[i].sugession}}</p>
+        <p><span>{{titles.mobile}}</span> : {{suggview[i].mobile}}</p>
+      </ion-card-content>
+      <ion-icon md="ios-arrow-dropdown-circle" (click)="replysug(suggview[i].id)"></ion-icon>
+      <ion-card *ngIf="buttonClicked">
+        <ion-card-content *ngFor="let sug of sugrply; let i =index;">
+            <p><span>{{titles.sugg}}</span> : {{suggview[i].sugession}}</p>
+            <p><span>{{titles.mobile}}</span> : {{suggview[i].mobile}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-card> -->
+    <div *ngFor="let sugg of suggview; let i= index">
+    <div class="row-main">
+      <p>{{suggview[i].name}}</p>
+      <p class="mobile-row"><img src="img/mobile.png"/>{{suggview[i].mobile}}</p>
+      <ion-row class="arrow-row"> 
+        <ion-icon class="down-icons" md="ios-arrow-down" (click)="infocl(suggview[i].id, i)"></ion-icon>
+      </ion-row>
+      <div [class] = "cssData[i].class">
+        <p class="sugg">{{titles.sugg}}</p>
+        <p>{{suggview[i].sugession}}</p>
+        <p class="sugg">{{titles.reply}}</p>
+        <div *ngFor="let sug of sugrply; let j=index">
+        <p >{{sugrply[j].message}}</p> 
+        </div>
+      </div>
+    </div>
+    </div>
    <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p>
 </ion-content>
