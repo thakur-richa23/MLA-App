@@ -39,7 +39,6 @@ export class HomePage {
       }else{
         this.titles = this.punjabi;
       }
-      console.log(this.titles);
     })
 
 

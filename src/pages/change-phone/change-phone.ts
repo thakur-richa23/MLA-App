@@ -30,7 +30,6 @@ this.storage.get('lang').then((lang) => {
   }else{
     this.titles = this.punjabi;
   }
-  console.log(this.titles);
 })
 }
 

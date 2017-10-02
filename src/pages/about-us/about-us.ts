@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavParams, Platform, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-
 @Component({
   selector: 'page-about-us',
   templateUrl: 'about-us.html',

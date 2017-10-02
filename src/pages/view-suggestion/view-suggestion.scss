@@ -67,65 +67,48 @@ page-view-suggestion {
         font-size: 30px;
         color: #fff;
     }
-    .searchicon{
-        display: inline-block;
-        font-size: 2em;
-        position: relative;
-        top: 0px;
-        float: right;
-        margin:5px 9px 0px;
-        color: #fff;
-        z-index: 999999;
-    }
-    .searchbar-md .searchbar-input {
-        padding-left: 55px;
-        padding-right: 55px;
-        padding-top: 6px;
-        padding-bottom: 6px;
-        border-radius: 2px;
-        height: auto;
-        font-size: 1.6rem;
-        font-weight: 400;
-        line-height: 3rem;
-        color: rgb(111, 111, 107);
-        background-color: #fff;
-        background-position: 8px center;
-        box-shadow: 0 2px 2px 0 #4f4f4f, 0 3px 1px -2px #4f4f4f, 0 1px 5px 0 #4f4f4f;
-    }
+   
     .row1{
         border: 1px solid grey;
         margin: 1em;
         height: 50px;
         background-color: aliceblue;
     }
-    .rnumber{     display: block;
-        width: 94%;
-        margin: 9px auto;
-        min-height: 25px;
-        padding: 7px 10px 7px 0px;
-    border:1px solid #000;
-    box-shadow: 1px 1px 4px 0px #5d4b29;
-color:#fff;}
-.rnumber span{    font-size: 16px;
-    font-weight: 400;
-    padding: 8px 10px;
-color:#fff;}
-.rnumber a{float: right;
-    margin-top: 0px;
-    text-decoration: none;
-    color: #fff;}
-    .custom-show{
+    .rnumber{  
         display: block;
-    }
-    .custom-hide{
-        display: none;
-    }
+        width: 100%;
+        margin: 9px auto;
+        min-height: 30px;
+       
+        -webkit-box-shadow: 1px 1px 4px 0px #5d4b29;
+        box-shadow: 1px 1px 4px 0px #5d4b29;
+        margin-bottom: 15px;
+        background-color: #f7aa69;
+        padding: 1px 10px 26px 0px;
+        
+}
+.para-complaint{ color: #fff;
+    font-size: 14px;
+    text-align: justify;
+    font-weight: 200;
+}
+.rnumber p{    font-size: 16px;
+    font-weight: 400;
+    padding: 4px 10px;
+color:#fff;}
+.rnumber a{       position: absolute;
+    right: 12%;
+    border: 1px solid #fff;
+    padding: 2px 8px;
+    color: #fff;
+    text-decoration: none;
+    margin-top: -7px;}
     ion-icon {
         display: inline-block;
         font-size: 2.2em;
         position: relative;
         top: 2px;
-        left: 135px;
+    
     }
     .custom-show{
         display: block;
@@ -140,44 +123,21 @@ color:#fff;}
         background-color: #5f6473;
     }
    .custom-even{
-    background-color: rgb(247, 105, 107);
+    background-color: #f7aa69;
     }
-
-    .row-main{background-color:#e47756; box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);}
-    .row-main p{      width: 100%;
-        text-align: center;
-        color: #fff;
-        font-size: 21px;
-        padding: 7px 0px 0px;
-        font-weight: 200;
-        margin: 0px;}
-        .row-main p.mobile-row{      width: 100%;
-            text-align: center;
-            color: #fff;
-            font-size: 18px;
-            margin: 0px 0px 28px;
-            font-weight: 200;
-            padding: 4px 0px;}
-            .row-main p.mobile-row img{    height: 18px;
-                margin: -2px 5px;}
-                .down-icons{    font-size: 28px;
-                    color: #e47756;
-                    border: 2px solid #e47756;
-                    background-color: #fff;
-                    border-radius: 50%;
-                    height: 34px;
-                    width: 35px;
-                    padding: 3px 6px;
-                    position: absolute;
-                    left: 44%;
-                    bottom: -8px;
-                    box-shadow: 0.45px 1.949px 1px 0px rgba(0, 0, 0, 0.2);
-                }
-                .arrow-row{    margin: auto;
-                    position: relative;}
-    .drop-background{background-color:#D8D8D8; text-align:center;}
-       .sugg{}
-
-
-
+    
+    .complaint-row{   
+        color: #000;
+        padding: 8px 12px;
+        background-color: #dedede;
+    }
+    .complaint-row p{padding:0px; margin:0px;}
+    .reponse-us{position: relative;
+        color: #000!important;
+        width: 100%;
+        margin: 24px 0px;
+        padding: 20px 18px 9px;
+        background-color: #dedede;
+        text-align: justify;
+        margin-bottom: 0px;}
 }

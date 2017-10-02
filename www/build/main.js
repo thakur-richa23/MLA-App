@@ -1,255 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 105:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComplaintInfo; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_network__ = __webpack_require__(106);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var ComplaintInfo = (function () {
-    function ComplaintInfo(navCtrl, loadingCtrl, network, navParams, storage, http, platform) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.loadingCtrl = loadingCtrl;
-        this.network = network;
-        this.navParams = navParams;
-        this.storage = storage;
-        this.http = http;
-        this.platform = platform;
-        this.allData = [];
-        this.cssData = [];
-        this.cssDataColor = [];
-        this.buttonClicked = false;
-        this.allImage = [];
-        this.reply = [];
-        this.replymsg = [];
-        this.replyimage = [];
-        this.allImages = [];
-        this.allImages1 = [];
-        this.allvideo1 = [];
-        this.video1 = [];
-        this.allImages2 = [];
-        this.replyimages = [];
-        this.IsHidden = true;
-        this.titles = [];
-        this.titless = [];
-        this.english = [];
-        this.punjabi = [];
-        this.buttonClick = false;
-        this.buttonClickedd = false;
-        this.serachreply = [];
-        this.serachreplymsg = [];
-        this.searchreplyimage = [];
-        this.searchreplyimages = [];
-        this.splitimages = [];
-        this.splitimg = [];
-        this.apiurl = "http://isp.mediaoncloud.com/MLA/";
-        this.enableIn = true;
-        this.status = 'playimg';
-        this.vol = 'mute';
-        //--------------Internet connection----------//  
-        this.network.onDisconnect().subscribe(function () {
-            _this.platform.ready().then(function () {
-                window.plugins.toast.show("You are offline", "long", "center");
-            });
-        });
-        this.network.onConnect().subscribe(function () {
-            _this.platform.ready().then(function () {
-                window.plugins.toast.show("You are online", "long", "center");
-            });
-        }); //-----------end here-----------//
-        this.english = { viewdetail: 'View Detail', resp: 'Response', viewcomplaint: 'View Complaint' };
-        this.punjabi = { viewdetail: 'ਵੇਰਵੇ ਦੇਖੋ', resp: 'ਜਵਾਬ', viewcomplaint: 'ਸਕਾਇਤ  ਦੇਖੋ' };
-        this.storage.get('lang').then(function (lang) {
-            _this.language = lang;
-            if (_this.language == 'english') {
-                _this.titles = _this.english;
-            }
-            else {
-                _this.titles = _this.punjabi;
-            }
-            console.log(_this.titles);
-        });
-        this.searchTerm = '';
-        this.storage.get('Uid').then(function (Uid) {
-            _this.userId = Uid;
-            var loadingPopup = _this.loadingCtrl.create({
-                content: '',
-            });
-            loadingPopup.present();
-            _this.http.get(_this.apiurl + "complaintview?userid=" + _this.userId).map(function (res) { return res.json(); }).subscribe(function (data) {
-                setTimeout(function () {
-                    if (data.status != 'Failed') {
-                        _this.allData = data;
-                        loadingPopup.dismiss();
-                        _this.videoshow = "custom-show";
-                        for (var i = 0; i < _this.allData.length; i++) {
-                            _this.cssData.push({
-                                class: 'custom-hide',
-                                classInner: 'custom-hide'
-                            });
-                            if (i % 2 == 0) {
-                                _this.cssDataColor.push({
-                                    class: 'custom-even',
-                                });
-                            }
-                            else {
-                                _this.cssDataColor.push({
-                                    class: 'custom-odd',
-                                });
-                            }
-                            var img = _this.allData[i].profile_img.split(",");
-                            _this.allImages1.push({ img: img });
-                            var video = _this.allData[i].video;
-                            _this.allvideo1.push({ video: video });
-                        }
-                    }
-                    else {
-                        _this.english = { message2: "There is no Complaints" };
-                        _this.punjabi = { message2: "ਕੋਈ ਸ਼ਿਕਾਇਤ ਨਹੀਂ ਹੈ" };
-                        _this.storage.get('lang').then(function (lang) {
-                            _this.language = lang;
-                            if (_this.language == 'english') {
-                                _this.titless = _this.english;
-                            }
-                            else {
-                                _this.titless = _this.punjabi;
-                            }
-                        });
-                        loadingPopup.dismiss();
-                    }
-                }, 1000);
-            });
-        });
-    }
-    ComplaintInfo.prototype.view_detail = function (index, b) {
-        var _this = this;
-        for (var i = 0; i < this.cssData.length; i++) {
-            if (i === index) {
-                if (this.cssData[index].class == 'custom-show') {
-                    this.cssData[index].class = 'custom-hide';
-                }
-                else {
-                    this.cssData[index].class = 'custom-show';
-                }
-            }
-            else {
-                this.cssData[i].class = 'custom-hide';
-            }
-        }
-        this.http.get(this.apiurl + "replyview?ref_num=" + b).map(function (res) { return res.json(); }).subscribe(function (data) {
-            _this.reply = data;
-            _this.splitimages = [];
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].images != '') {
-                    var img = data[i].images.split(",");
-                    _this.splitimages.push({ img: img });
-                }
-            }
-            for (var i = 0; i < _this.cssData.length; i++) {
-                if (i === index) {
-                    if (_this.cssData[index].classInner == 'custom-show') {
-                        _this.cssData[index].classInner = 'custom-hide';
-                    }
-                    else {
-                        _this.cssData[index].classInner = 'custom-show';
-                    }
-                }
-                else {
-                    _this.cssData[i].classInner = 'custom-hide';
-                }
-            }
-        });
-    };
-    ComplaintInfo.prototype.searchBtn = function () {
-        this.buttonClicked = !this.buttonClicked;
-    };
-    ComplaintInfo.prototype.onInput = function (searchTerm) {
-        var _this = this;
-        if (searchTerm.length >= 6) {
-            this.enableIn = 'false';
-            this.http.get(this.apiurl + 'complaintviewref?ref_num=' + searchTerm).map(function (res) { return res.json(); }).subscribe(function (data) {
-                _this.complaintname = data[0].name;
-                _this.complaintdate = data[0].date;
-                _this.complnt = data[0].complaint;
-                _this.p_image = data[0].profile_img;
-                _this.refrenceno = data[0].ref_num;
-                _this.allImage = _this.p_image.split(",");
-                _this.reply_video = data[0].video;
-                _this.http.get(_this.apiurl + "replyview?ref_num=" + _this.refrenceno).map(function (res) { return res.json(); }).subscribe(function (data) {
-                    _this.serachreply = data;
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].images != '') {
-                            var imgg = data[i].images.split(",");
-                            _this.splitimg.push({ imgg: imgg });
-                        }
-                    }
-                });
-            });
-        }
-    };
-    ComplaintInfo.prototype.volume = function () {
-        this.video = document.getElementById('video1');
-        if (!this.video.muted) {
-            this.video.muted = true;
-            this.vol = 'mute';
-        }
-        else {
-            this.video.muted = false;
-            this.vol = 'unmute';
-        }
-    };
-    ComplaintInfo.prototype.play = function () {
-        this.video = document.getElementById('video1');
-        if (this.video.paused === false) {
-            this.status = 'playimg';
-            this.video.pause();
-        }
-        else {
-            this.status = 'pauseimg';
-            this.video.play();
-        }
-    };
-    ComplaintInfo.prototype.rewind = function () {
-        this.video = document.getElementById('video1');
-        this.video.currentTime -= 10;
-    };
-    ComplaintInfo.prototype.forward = function () {
-        this.video = document.getElementById('video1');
-        this.video.currentTime += 10;
-    };
-    return ComplaintInfo;
-}());
-ComplaintInfo = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-complaint-info',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\complaint-info\complaint-info.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title >{{titles.viewcomplaint}}</ion-title>\n    <ion-icon ios="ios-search" md="md-search" class="searchicon" (click)="searchBtn()" ></ion-icon>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-color:#f9e7cf; margin-top:30px;">\n<ion-searchbar *ngIf="buttonClicked" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchTerm)" ></ion-searchbar>\n<div *ngIf= "enableIn == true">\n<div *ngIf="allData">\n<ion-row *ngFor="let data of allData; let i= index" class="rnumber {{cssDataColor[i].class}}">\n  <span>{{allData[i].ref_num}}</span><a (click)="view_detail(i, allData[i].ref_num)" href="#">{{titles.viewdetail}}</a>\n  <ion-card [class] = "cssData[i].class">\n      <ion-card-content>\n        <ion-row  class="complaint-row">\n        <h4 > {{allData[i].name}}</h4>\n        <p > {{allData[i].date}}</p>\n        </ion-row>\n        <ion-row>\n          <p class="para-complaint">{{allData[i].complaint}}</p>\n        </ion-row>\n        <ion-row *ngIf="allImages1[i].img != \'\' ">\n        <img *ngFor="let img of allImages1[i].img" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img"/>\n        </ion-row>\n        <ion-row class="video-main">\n        <video *ngIf="allData[i].video != \'\' && allData[i].video != \'undefined\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{allData[i].video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>  \n        </ion-row>\n        <ion-row *ngIf="allData[i].video != \'\' && allData[i].video != \'undefined\' " class="plyer-row" > \n            <img src="img/backward.png" (click)="rewind()"/>\n            <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n            <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n            <img   src="img/forward.png" (click)="forward()"/>\n            <img   class="volume-img" *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n            <img  class="volume-img"  *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n        </ion-row>\n      \n        <!-- <ion-row>\n        <a (click)="view(allData[i].ref_num,i)" class="response">{{titles.resp}}</a>\n        </ion-row> -->\n        <!-- <ion-row > \n        <p  *ngFor="let rep of reply" style="color:black;width:100%;">{{rep.message}}</p><br>\n        </ion-row> -->\n        <ion-row [class] = "cssData[i].classInner"> \n          <p  *ngFor="let rep of reply" class="reponse-us">\n              <span class="date">{{rep.date}}</span>\n              {{rep.message}}\n             <ion-row class="subject"> <span>{{rep.subject}}</span> </ion-row>\n            \n            </p>\n        </ion-row>\n        <div [class] = "cssData[i].classInner">\n          <div *ngFor="let imgeee of splitimages">\n            <div *ngFor="let imgee of imgeee.img">\n             <img *ngIf="imgee" src="http://kailash.mediaoncloud.com/MLAfiles/{{imgee}}" class="gal-img" />\n            </div>\n          </div>\n        </div>\n        <div [class] = "cssData[i].classInner" *ngFor="let repvideos of reply">\n          <ion-row class="video-main" >\n            <video *ngIf="repvideos.video != \'\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{repvideos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>\n          </ion-row>\n          <ion-row *ngIf="repvideos.video != \'\' " class="plyer-row"> \n              <img  src="img/backward.png" (click)="rewind()"/>\n              <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n              <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n              <img   src="img/forward.png" (click)="forward()"/>\n              <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n              <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n          </ion-row>\n        </div>\n        \n      </ion-card-content>\n    </ion-card>\n</ion-row>\n</div>\n</div>\n\n<!-- search bar-->\n<ion-row *ngIf="enableIn == \'false\'">\n    <ion-card class="rnumber1">\n    <ion-card-content>\n        <ion-row class="complaint-row1">\n         <h4>{{complaintname}}</h4>\n         <p>{{complaintdate}}</p>\n          </ion-row>\n          <ion-row >\n          <p class="para-complaint1">{{complnt}}</p>\n          </ion-row>\n          <ion-row *ngIf="allImage != \'\' ">\n          <img *ngFor="let img of allImage" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img1"/>\n          </ion-row>\n          <ion-row class="video-main">\n          <video  *ngIf="reply_video != \'\' && reply_video != \'undefined\'" width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{reply_video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>\n          </ion-row>\n          <ion-row *ngIf="reply_video != \'\' && reply_video != \'undefined\'" class="plyer-row" >  \n              <img  src="img/backward.png" (click)="rewind()"/>\n              <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n              <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n              <img   src="img/forward.png" (click)="forward()"/>\n              <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n              <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n          </ion-row>\n          <!-- <ion-row>\n          <a (click)="viewrefdetail(refrenceno)" class="response1">{{titles.resp}}</a>\n          </ion-row> -->\n          <ion-row >\n           <p *ngFor="let reply of serachreply" class="reponse-us">\n              <span class="date">{{reply.date}}</span>\n              {{reply.message}}\n             <ion-row class="subject"> <span>{{reply.subject}}</span> </ion-row> \n            </p>\n          </ion-row>\n             <div *ngFor="let img of splitimg">\n             <div *ngFor="let imge of img.imgg">\n               <img *ngIf="imge" src="http://kailash.mediaoncloud.com/MLAfiles/{{imge}}" class="gal-img1" />\n             </div>\n             </div>\n           <div *ngFor="let videos of serachreply">\n             <ion-row class="video-main">\n               <video *ngIf="videos.video != \'\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{videos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>              \n             </ion-row>\n             <ion-row *ngIf="videos.video != \'\' " class="plyer-row"> \n                <img  src="img/backward.png" (click)="rewind()"/>\n                <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n                <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n                <img   src="img/forward.png" (click)="forward()"/>\n                <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n                <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n            </ion-row>\n          </div>\n          </ion-card-content>\n       </ion-card>\n     </ion-row>\n<div> \n  <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p>\n</div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\complaint-info\complaint-info.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]])
-], ComplaintInfo);
-
-//# sourceMappingURL=complaint-info.js.map
-
-/***/ }),
-
-/***/ 107:
+/***/ 106:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -324,7 +75,7 @@ Setting = __decorate([
 
 /***/ }),
 
-/***/ 116:
+/***/ 115:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -337,11 +88,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 116;
+webpackEmptyAsyncContext.id = 115;
 
 /***/ }),
 
-/***/ 158:
+/***/ 157:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -354,11 +105,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 158;
+webpackEmptyAsyncContext.id = 157;
 
 /***/ }),
 
-/***/ 202:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -369,12 +120,12 @@ webpackEmptyAsyncContext.id = 158;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(290);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_transfer__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_path__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_media_capture__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_image_picker__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_transfer__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_path__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_media_capture__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_image_picker__ = __webpack_require__(207);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_storage__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_toast__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -684,7 +435,6 @@ var Complaint = (function () {
         });
         toast.present();
     };
-    // Always get the accurate path to your apps folder
     Complaint.prototype.pathForImage = function (img) {
         if (img === null) {
             return '';
@@ -844,7 +594,7 @@ Complaint = __decorate([
 
 /***/ }),
 
-/***/ 209:
+/***/ 208:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -900,7 +650,6 @@ var Suggestion = (function () {
             else {
                 _this.titles = _this.punjabi;
             }
-            console.log(_this.titles);
         });
         this.storage.get('facebooktype').then(function (facebooktype) {
             _this.suggftype = facebooktype;
@@ -932,7 +681,6 @@ var Suggestion = (function () {
         });
         this.http.get(this.apiurl + "selectArea").map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.areatype = data;
-            console.log(_this.areatype);
         });
         this.http.get(this.apiurl + "selectVillage").map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.villagetype = data;
@@ -1002,7 +750,7 @@ var Suggestion = (function () {
 }());
 Suggestion = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-suggestion',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\suggestion\suggestion.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{titles.sugg}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-image: url(img/back.png); background-size: cover;">\n  \n  <ion-grid class="first-one">  \n    <ion-row >\n\n<ion-col col-7 class="col-one">\n<p>{{titles.title}}</p>\n <p class="p2">{{titles.Designation}}</p>\n  </ion-col>\n\n<ion-col col-5 class="col-second">\n<img src="img/photo.jpg"/>\n</ion-col>\n\n </ion-row>\n </ion-grid>\n <ion-row class="first-row">\n    <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="profile" name="profile"></ion-input>\n  </ion-row>\n  <ion-row class="first-row">\n    <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addresss" name="addresss"></ion-input>\n</ion-row>\n   <ion-row class="second-row">\n      <select  id ="areacat" class="drop-down" placeholder="Select Area"  type="text" name="areasel" onmousedown="this.value=\'\';" [(ngModel)]="areasel" (change)="areacategory(areasel)" >  \n          <option value="" disabled selected>{{titles.area}}</option>\n        <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>\n      </select>\n  </ion-row>\n  <ion-row *ngIf="value == \'ward\'  || (areasel==\'Tarn Taran City\')" class="second-row"  >\n      <select  class="drop-down" placeholder="Select Ward"  type="text" name="wardsel" onmousedown="this.value=\'\';" [(ngModel)]="wardsel" (change)="wardcategory(wardsel)" >  \n        <option value="" disabled selected>{{titles.ward}}</option>\n        <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>\n      </select>  \n    </ion-row>\n    \n    <ion-row *ngIf="value==\'village\' || (areasel==\'Tarn Taran Village\')" class="second-row" >\n        <select class="drop-down" placeholder="Select Village"  type="text" name="villsel" onmousedown="this.value=\'\';" [(ngModel)]="villsel" (change)="villagecat(villsel)" >  \n            <option value="" disabled selected>{{titles.village}}</option>\n          <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>\n        </select> \n    </ion-row> \n  <ion-row class="third-row">\n    <textarea [(ngModel)]="data.suggestion" name="data.suggestion" placeholder="{{titles.sugg}}" rows="6" cols="50"></textarea>\n  </ion-row>\n  <ion-row class="first-row">\n    <ion-input type="tel" maxlength="10" [(ngModel)]="p_no" name="p_no" placeholder="{{titles.mob}}"></ion-input>\n  </ion-row>\n  <button ion-button round outline block type="submit" class="button-submit" (click)="submit(profile,addresss,areasel,wardsel,villsel,data.suggestion,p_no)">{{titles.sub}}</button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\suggestion\suggestion.html"*/,
+        selector: 'page-suggestion',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\suggestion\suggestion.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{titles.sugg}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-image: url(img/back.png); background-size: cover;">\n  \n<ion-grid class="first-one">  \n  <ion-row >\n<ion-col col-7 class="col-one">\n<p>{{titles.title}}</p>\n <p class="p2">{{titles.Designation}}</p>\n  </ion-col>\n\n<ion-col col-5 class="col-second">\n<img src="img/photo.jpg"/>\n</ion-col>\n\n </ion-row>\n </ion-grid>\n <ion-row class="first-row">\n    <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="profile" name="profile"></ion-input>\n  </ion-row>\n  <ion-row class="first-row">\n    <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addresss" name="addresss"></ion-input>\n</ion-row>\n   <ion-row class="second-row">\n      <select  id ="areacat" class="drop-down" placeholder="Select Area"  type="text" name="areasel" onmousedown="this.value=\'\';" [(ngModel)]="areasel" (change)="areacategory(areasel)" >  \n          <option value="" disabled selected>{{titles.area}}</option>\n        <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>\n      </select>\n  </ion-row>\n  <ion-row *ngIf="value == \'ward\'  || (areasel==\'Tarn Taran City\')" class="second-row"  >\n      <select  class="drop-down" placeholder="Select Ward"  type="text" name="wardsel" onmousedown="this.value=\'\';" [(ngModel)]="wardsel" (change)="wardcategory(wardsel)" >  \n        <option value="" disabled selected>{{titles.ward}}</option>\n        <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>\n      </select>  \n  </ion-row>\n    \n    <ion-row *ngIf="value==\'village\' || (areasel==\'Tarn Taran Village\')" class="second-row" >\n        <select class="drop-down" placeholder="Select Village"  type="text" name="villsel" onmousedown="this.value=\'\';" [(ngModel)]="villsel" (change)="villagecat(villsel)" >  \n            <option value="" disabled selected>{{titles.village}}</option>\n          <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>\n        </select> \n    </ion-row> \n  <ion-row class="third-row">\n    <textarea [(ngModel)]="data.suggestion" name="data.suggestion" placeholder="{{titles.sugg}}" rows="6" cols="50"></textarea>\n  </ion-row>\n  <ion-row class="first-row">\n    <ion-input type="tel" maxlength="10" [(ngModel)]="p_no" name="p_no" placeholder="{{titles.mob}}"></ion-input>\n  </ion-row>\n  <button ion-button round outline block type="submit" class="button-submit" (click)="submit(profile,addresss,areasel,wardsel,villsel,data.suggestion,p_no)">{{titles.sub}}</button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\suggestion\suggestion.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_toast__["a" /* Toast */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
 ], Suggestion);
@@ -1012,7 +760,7 @@ var _a, _b, _c, _d, _e;
 
 /***/ }),
 
-/***/ 210:
+/***/ 209:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1020,7 +768,7 @@ var _a, _b, _c, _d, _e;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1056,7 +804,6 @@ var Gallery = (function () {
         this.titles = [];
         this.english = [];
         this.punjabi = [];
-        //this.slideData = [{ image: 'img/slide1.jpg'},{ image: 'img/slide2.jpg'},{ image: 'img/slide3.jpg'}]
         this.apiurl = "http://isp.mediaoncloud.com/MLA/";
         this.fb_api();
         this.fb_pagination();
@@ -1074,14 +821,12 @@ var Gallery = (function () {
         });
         this.http.get(this.apiurl + "fbApiShowAll").map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.fb_res = 60 / 10;
-            console.log(_this.fb_res);
         });
     }
     Gallery.prototype.fb_api = function () {
         var _this = this;
         this.http.get(this.apiurl + "fbApi").map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.fb_res = data;
-            console.log(_this.fb_res);
         });
     };
     Gallery.prototype.fb_pagination = function () {
@@ -1098,12 +843,12 @@ var Gallery = (function () {
                 loadingPopup.dismiss();
             }, 1000);
             if (data.length == 0) {
-                var alert_1 = _this.alertCtrl.create({
+                var alert = _this.alertCtrl.create({
                     title: 'Images!',
                     subTitle: 'No More Images available',
                     buttons: ['Ok']
                 });
-                alert_1.present();
+                alert.present();
             }
             else {
                 for (var i = 0; i < data.length; i++) {
@@ -1130,14 +875,12 @@ var Gallery = (function () {
                             _this.load = '';
                             for (var i = 0; i < _this.item.length; i++) {
                                 _this.allImages.push(_this.item[i]);
-                                console.log(_this.allImages);
                             }
                             loadingPopup_1.dismiss();
                             infiniteScroll.complete();
                         }, 1000);
                     }
                     else {
-                        //alert("No more images available...");
                         setTimeout(function () {
                             _this.load = 'No more images available...';
                             infiniteScroll.complete();
@@ -1165,10 +908,261 @@ Gallery = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-gallery',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\gallery\gallery.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{titles.gallery}}</ion-title>\n  </ion-navbar> \n</ion-header>\n\n<ion-content padding style="background-image: url(img/back.png); background-size: cover;"> \n  <ion-input type="hidden" [(ngModel)]="imagesoffset" id="moviesOffset"></ion-input>\n    <img *ngFor="let item of allImages" [src]="item"  (click)="openImage(item)" class="gal-img" />\n    <p>{{load}}</p>\n  <ion-infinite-scroll (ionInfinite)="doInfinite($event,imagesoffset)">\n      <ion-infinite-scroll-content ></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\gallery\gallery.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _g || Object])
 ], Gallery);
 
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=gallery.js.map
+
+/***/ }),
+
+/***/ 211:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ComplaintInfo; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_network__ = __webpack_require__(105);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ComplaintInfo = (function () {
+    function ComplaintInfo(navCtrl, loadingCtrl, network, navParams, storage, http, platform) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.network = network;
+        this.navParams = navParams;
+        this.storage = storage;
+        this.http = http;
+        this.platform = platform;
+        this.allData = [];
+        this.cssData = [];
+        this.cssDataColor = [];
+        this.buttonClicked = false;
+        this.allImage = [];
+        this.reply = [];
+        this.replymsg = [];
+        this.replyimage = [];
+        this.allImages = [];
+        this.allImages1 = [];
+        this.allvideo1 = [];
+        this.video1 = [];
+        this.allImages2 = [];
+        this.replyimages = [];
+        this.IsHidden = true;
+        this.titles = [];
+        this.titless = [];
+        this.english = [];
+        this.punjabi = [];
+        this.buttonClick = false;
+        this.buttonClickedd = false;
+        this.serachreply = [];
+        this.serachreplymsg = [];
+        this.searchreplyimage = [];
+        this.searchreplyimages = [];
+        this.splitimages = [];
+        this.splitimg = [];
+        this.apiurl = "http://isp.mediaoncloud.com/MLA/";
+        this.enableIn = true;
+        this.status = 'playimg';
+        this.vol = 'mute';
+        //--------------Internet connection----------//  
+        this.network.onDisconnect().subscribe(function () {
+            _this.platform.ready().then(function () {
+                window.plugins.toast.show("You are offline", "long", "center");
+            });
+        });
+        this.network.onConnect().subscribe(function () {
+            _this.platform.ready().then(function () {
+                window.plugins.toast.show("You are online", "long", "center");
+            });
+        }); //-----------end here-----------//
+        this.english = { viewdetail: 'View Detail', resp: 'Response', viewcomplaint: 'View Complaint' };
+        this.punjabi = { viewdetail: 'ਵੇਰਵੇ ਦੇਖੋ', resp: 'ਜਵਾਬ', viewcomplaint: 'ਸਕਾਇਤ  ਦੇਖੋ' };
+        this.storage.get('lang').then(function (lang) {
+            _this.language = lang;
+            if (_this.language == 'english') {
+                _this.titles = _this.english;
+            }
+            else {
+                _this.titles = _this.punjabi;
+            }
+            console.log(_this.titles);
+        });
+        this.searchTerm = '';
+        this.storage.get('Uid').then(function (Uid) {
+            _this.userId = Uid;
+            var loadingPopup = _this.loadingCtrl.create({
+                content: '',
+            });
+            loadingPopup.present();
+            _this.http.get(_this.apiurl + "complaintview?userid=" + _this.userId).map(function (res) { return res.json(); }).subscribe(function (data) {
+                setTimeout(function () {
+                    if (data.status != 'Failed') {
+                        _this.allData = data;
+                        loadingPopup.dismiss();
+                        _this.videoshow = "custom-show";
+                        for (var i = 0; i < _this.allData.length; i++) {
+                            _this.cssData.push({
+                                class: 'custom-hide',
+                                classInner: 'custom-hide'
+                            });
+                            if (i % 2 == 0) {
+                                _this.cssDataColor.push({
+                                    class: 'custom-even',
+                                });
+                            }
+                            else {
+                                _this.cssDataColor.push({
+                                    class: 'custom-odd',
+                                });
+                            }
+                            var img = _this.allData[i].profile_img.split(",");
+                            _this.allImages1.push({ img: img });
+                            var video = _this.allData[i].video;
+                            _this.allvideo1.push({ video: video });
+                        }
+                    }
+                    else {
+                        _this.english = { message2: "There is no Complaints" };
+                        _this.punjabi = { message2: "ਕੋਈ ਸ਼ਿਕਾਇਤ ਨਹੀਂ ਹੈ" };
+                        _this.storage.get('lang').then(function (lang) {
+                            _this.language = lang;
+                            if (_this.language == 'english') {
+                                _this.titless = _this.english;
+                            }
+                            else {
+                                _this.titless = _this.punjabi;
+                            }
+                        });
+                        loadingPopup.dismiss();
+                    }
+                }, 1000);
+            });
+        });
+    }
+    ComplaintInfo.prototype.view_detail = function (index, b) {
+        var _this = this;
+        for (var i = 0; i < this.cssData.length; i++) {
+            if (i === index) {
+                if (this.cssData[index].class == 'custom-show') {
+                    this.cssData[index].class = 'custom-hide';
+                }
+                else {
+                    this.cssData[index].class = 'custom-show';
+                }
+            }
+            else {
+                this.cssData[i].class = 'custom-hide';
+            }
+        }
+        this.http.get(this.apiurl + "replyview?ref_num=" + b).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.reply = data;
+            _this.splitimages = [];
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].images != '') {
+                    var img = data[i].images.split(",");
+                    _this.splitimages.push({ img: img });
+                }
+            }
+            for (var i = 0; i < _this.cssData.length; i++) {
+                if (i === index) {
+                    if (_this.cssData[index].classInner == 'custom-show') {
+                        _this.cssData[index].classInner = 'custom-hide';
+                    }
+                    else {
+                        _this.cssData[index].classInner = 'custom-show';
+                    }
+                }
+                else {
+                    _this.cssData[i].classInner = 'custom-hide';
+                }
+            }
+        });
+    };
+    ComplaintInfo.prototype.searchBtn = function () {
+        this.buttonClicked = !this.buttonClicked;
+    };
+    ComplaintInfo.prototype.onInput = function (searchTerm) {
+        var _this = this;
+        if (searchTerm.length >= 6) {
+            this.enableIn = 'false';
+            this.http.get(this.apiurl + 'complaintviewref?ref_num=' + searchTerm).map(function (res) { return res.json(); }).subscribe(function (data) {
+                _this.complaintname = data[0].name;
+                _this.complaintdate = data[0].date;
+                _this.complnt = data[0].complaint;
+                _this.p_image = data[0].profile_img;
+                _this.refrenceno = data[0].ref_num;
+                _this.allImage = _this.p_image.split(",");
+                _this.reply_video = data[0].video;
+                _this.http.get(_this.apiurl + "replyview?ref_num=" + _this.refrenceno).map(function (res) { return res.json(); }).subscribe(function (data) {
+                    _this.serachreply = data;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].images != '') {
+                            var imgg = data[i].images.split(",");
+                            _this.splitimg.push({ imgg: imgg });
+                        }
+                    }
+                });
+            });
+        }
+    };
+    ComplaintInfo.prototype.volume = function () {
+        this.video = document.getElementById('video1');
+        if (!this.video.muted) {
+            this.video.muted = true;
+            this.vol = 'mute';
+        }
+        else {
+            this.video.muted = false;
+            this.vol = 'unmute';
+        }
+    };
+    ComplaintInfo.prototype.play = function () {
+        this.video = document.getElementById('video1');
+        if (this.video.paused === false) {
+            this.status = 'playimg';
+            this.video.pause();
+        }
+        else {
+            this.status = 'pauseimg';
+            this.video.play();
+        }
+    };
+    ComplaintInfo.prototype.rewind = function () {
+        this.video = document.getElementById('video1');
+        this.video.currentTime -= 10;
+    };
+    ComplaintInfo.prototype.forward = function () {
+        this.video = document.getElementById('video1');
+        this.video.currentTime += 10;
+    };
+    return ComplaintInfo;
+}());
+ComplaintInfo = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-complaint-info',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\complaint-info\complaint-info.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title >{{titles.viewcomplaint}}</ion-title>\n    <ion-icon ios="ios-search" md="md-search" class="searchicon" (click)="searchBtn()" ></ion-icon>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-color:#f9e7cf; margin-top:30px;">\n<ion-searchbar *ngIf="buttonClicked" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchTerm)" ></ion-searchbar>\n<div *ngIf= "enableIn == true">\n<div *ngIf="allData">\n<ion-row *ngFor="let data of allData; let i= index" class="rnumber {{cssDataColor[i].class}}">\n  <span>{{allData[i].ref_num}}</span><a (click)="view_detail(i, allData[i].ref_num)" href="#">{{titles.viewdetail}}</a>\n  <ion-card [class] = "cssData[i].class">\n      <ion-card-content>\n        <ion-row  class="complaint-row">\n        <h4 > {{allData[i].name}}</h4>\n        <p > {{allData[i].date}}</p>\n        </ion-row>\n        <ion-row>\n          <p class="para-complaint">{{allData[i].complaint}}</p>\n        </ion-row>\n        <ion-row *ngIf="allImages1[i].img != \'\' ">\n        <img *ngFor="let img of allImages1[i].img" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img"/>\n        </ion-row>\n        <ion-row class="video-main">\n        <video *ngIf="allData[i].video != \'\' && allData[i].video != \'undefined\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{allData[i].video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>  \n        </ion-row>\n        <ion-row *ngIf="allData[i].video != \'\' && allData[i].video != \'undefined\' " class="plyer-row" > \n            <img src="img/backward.png" (click)="rewind()"/>\n            <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n            <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n            <img   src="img/forward.png" (click)="forward()"/>\n            <img   class="volume-img" *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n            <img  class="volume-img"  *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n        </ion-row>\n      \n        <!-- <ion-row>\n        <a (click)="view(allData[i].ref_num,i)" class="response">{{titles.resp}}</a>\n        </ion-row> -->\n        <!-- <ion-row > \n        <p  *ngFor="let rep of reply" style="color:black;width:100%;">{{rep.message}}</p><br>\n        </ion-row> -->\n        <ion-row [class] = "cssData[i].classInner"> \n          <p  *ngFor="let rep of reply" class="reponse-us">\n              <span class="date">{{rep.date}}</span>\n              {{rep.message}}\n             <ion-row class="subject"> <span>{{rep.subject}}</span> </ion-row>\n            </p>\n        </ion-row>\n        <div [class] = "cssData[i].classInner">\n          <div *ngFor="let imgeee of splitimages">\n            <div *ngFor="let imgee of imgeee.img">\n             <img *ngIf="imgee" src="http://kailash.mediaoncloud.com/MLAfiles/{{imgee}}" class="gal-img" />\n            </div>\n          </div>\n        </div>\n        <div [class] = "cssData[i].classInner" *ngFor="let repvideos of reply">\n          <ion-row class="video-main" >\n            <video *ngIf="repvideos.video != \'\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{repvideos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>\n          </ion-row>\n          <ion-row *ngIf="repvideos.video != \'\' " class="plyer-row"> \n              <img  src="img/backward.png" (click)="rewind()"/>\n              <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n              <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n              <img   src="img/forward.png" (click)="forward()"/>\n              <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n              <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n          </ion-row>\n        </div>\n        \n      </ion-card-content>\n    </ion-card>\n</ion-row>\n</div>\n</div>\n\n<!-- search bar-->\n<ion-row *ngIf="enableIn == \'false\'">\n    <ion-card class="rnumber1">\n    <ion-card-content>\n        <ion-row class="complaint-row1">\n         <h4>{{complaintname}}</h4>\n         <p>{{complaintdate}}</p>\n          </ion-row>\n          <ion-row >\n          <p class="para-complaint1">{{complnt}}</p>\n          </ion-row>\n          <ion-row *ngIf="allImage != \'\' ">\n          <img *ngFor="let img of allImage" src="http://kailash.mediaoncloud.com/MLAfiles/{{img}}" class="gal-img1"/>\n          </ion-row>\n          <ion-row class="video-main">\n          <video  *ngIf="reply_video != \'\' && reply_video != \'undefined\'" width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{reply_video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>\n          </ion-row>\n          <ion-row *ngIf="reply_video != \'\' && reply_video != \'undefined\'" class="plyer-row" >  \n              <img  src="img/backward.png" (click)="rewind()"/>\n              <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n              <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n              <img   src="img/forward.png" (click)="forward()"/>\n              <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n              <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n          </ion-row>\n          <!-- <ion-row>\n          <a (click)="viewrefdetail(refrenceno)" class="response1">{{titles.resp}}</a>\n          </ion-row> -->\n          <ion-row >\n           <p *ngFor="let reply of serachreply" class="reponse-us">\n              <span class="date">{{reply.date}}</span>\n              {{reply.message}}\n             <ion-row class="subject"> <span>{{reply.subject}}</span> </ion-row> \n            </p>\n          </ion-row>\n             <div *ngFor="let img of splitimg">\n             <div *ngFor="let imge of img.imgg">\n               <img *ngIf="imge" src="http://kailash.mediaoncloud.com/MLAfiles/{{imge}}" class="gal-img1" />\n             </div>\n             </div>\n           <div *ngFor="let videos of serachreply">\n             <ion-row class="video-main">\n               <video *ngIf="videos.video != \'\' " width="100%" height="150" id="video1" poster="img/postr.jpg" src="http://kailash.mediaoncloud.com/MLAfiles/{{videos.video}}" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"></video>              \n             </ion-row>\n             <ion-row *ngIf="videos.video != \'\' " class="plyer-row"> \n                <img  src="img/backward.png" (click)="rewind()"/>\n                <img  *ngIf="status==\'playimg\'"  src="img/play.png"  (click)="play()" />\n                <img  *ngIf="status==\'pauseimg\'" src="img/stop.png" (click)="play()" />\n                <img   src="img/forward.png" (click)="forward()"/>\n                <img   class="volume-img"   *ngIf="vol==\'unmute\'" src="img/volume.png"  (click)="volume()" />\n                <img  class="volume-img"   *ngIf="vol==\'mute\'" src="img/mute.png" (click)="volume()" />\n            </ion-row>\n          </div>\n          </ion-card-content>\n       </ion-card>\n     </ion-row>\n<div> \n  <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p>\n</div>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\complaint-info\complaint-info.html"*/,
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_network__["a" /* Network */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_network__["a" /* Network */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _g || Object])
+], ComplaintInfo);
+
+var _a, _b, _c, _d, _e, _f, _g;
+//# sourceMappingURL=complaint-info.js.map
 
 /***/ }),
 
@@ -1194,8 +1188,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var Constituency = (function () {
     function Constituency(navCtrl, navParams, storage) {
-        // this.msg= "ਤਰਨ ਤਾਰਨ ਚੋਣ ਖੇਤਰ , ਪੰਜਾਬ ਵਿਧਾਨ ਸਭਾ ਦੀਆਂ 117 ਸੀਟਾਂ ਵਿੱਚੋ ਇੱਕ ਹੈ ਅਤੇ ਇਸਦੇ ਹਲਕੇ ਦਾ ਨੰਬਰ 21 ਹੈ . ਕਾਂਗਰਸ ਦੇ ਰਹਿਣ ਵਾਲੇ ਡਾ ਧਰਮਵੀਰ ਅਗਨੀਹੋਤਰੀ ਨੇ ਪਿਛਲੀਆਂ ਵਿਧਾਨ  ਸਭਾ ਚੋਣਾਂ ਵਿੱਚ ਜਿੱਤ ਪ੍ਰਾਪਤ  ਕੀਤੀ ਹੈ ਅਤੇ ਮੌਜੂਦਾ ਤਰਨ ਤਾਰਨ ਦੇ ਵਿਧਾਇਕ ਹਨ . ਓਨ੍ਨਾ ਨੇ 2017 ਵਿੱਚ ਹੋਈਆਂ ਪਿਛਲੀਆਂ ਵਿਧਾਨ ਸਭਾ ਚੋਣਾਂ ਵਿੱਚ ਅਕਾਲੀ ਦਲ ਦੇ ਨਜ਼ਦੀਕੀ ਵਿਰੋਧੀ ਹਰਮੀਤ ਵਿਧਾਨ  ਸਿੰਘ  ਸੰਧੂ ਨੂੰ 14629 ਵੋਟਾਂ ਦੇ ਨਾਲ ਹਰਾਇਆ.";
-        // this.msg1="2017 ਵਿਧਾਨ ਸਭਾ ਚੋਣਾਂ ਦੇ ਵੋਟਰ ਸੂਚੀ ਅਨੁਸਾਰ   ਤਾਰਨ ਹਲਕੇ  ਦੇ ਕੁਲ 181901 ਵੋਟਰ ਹਨ.  ਇਨ੍ਹਾਂ  ਚੋਂਣਾ ਵਿੱਚ  ਚੋਣ ਕਮਿਸ਼ਨ ਨੇ 203 ਪੋਲਿੰਗ ਸਟੇਸ਼ਨ ਸਥਾਪਿਤ ਕੀਤੇ, ਜੋ ਇਸ ਵਿਧਾਨ  ਸਭਾ ਹਲਕੇ ਦੇ 111 ਵੱਖ- ਵੱਖ ਸਥਾਨਾਂ ਤੇ ਸਿਥਤ ਹਨ. 2017 ਦੀਆਂ ਚੋਣਾਂ ਦੇ ਦੌਰਾਨ, ਇਸ ਖੇਤਰ ਿਵੱਚ 132333 ਵੋਟਾ ਪਈਆਂ ਸਨ ਅਤੇ ਵੋਟਿੰਗ ਪ੍ਤੀਸ਼ਤ 72.75%  ਵਿਚ  ਦਰਜ ਕੀਤੀ ਗਈ ਸੀ, ਜੋ ਰਾਜ ਦੀ ਔਸਤ 77.4 ਤੋਂ ਘੱਟ ਸੀ. ";
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -1328,9 +1320,11 @@ var ViewSuggestion = (function () {
         this.punjabi = [];
         this.cssDataColor = [];
         this.sugrply = [];
+        this.suggestonrply = [];
+        this.allreply = [];
         this.apiurl = "http://isp.mediaoncloud.com/MLA/";
-        this.english = { title: 'View Suggestion', name: 'Name', sugg: 'Suggestion', mobile: 'Phone Number', area: 'Area', ward: 'Ward', village: 'Village', reply: 'Reply' };
-        this.punjabi = { title: 'ਸੁਝਾਅ ਦੇਖੋ', name: 'ਨਾਮ', sugg: 'ਸਲਾਹ', mobile: 'ਮੋਬਾਈਲ', area: 'ਖੇਤਰ', ward: 'ਵਾਰਡ', village: 'ਪਿੰਡ', reply: 'ਜਵਾਬ ਦਿਉ' };
+        this.english = { title: 'View Suggestion', viewreply: 'View Reply', name: 'Name', sugg: 'Suggestion', mobile: 'Phone Number', area: 'Area', ward: 'Ward', village: 'Village', reply: 'Reply' };
+        this.punjabi = { title: 'ਸੁਝਾਅ ਦੇਖੋ', viewreply: 'ਜਵਾਬ ਦੇਖੋ', name: 'ਨਾਮ', sugg: 'ਸਲਾਹ', mobile: 'ਮੋਬਾਈਲ', area: 'ਖੇਤਰ', ward: 'ਵਾਰਡ', village: 'ਪਿੰਡ', reply: 'ਜਵਾਬ ਦਿਉ' };
         this.storage.get('lang').then(function (lang) {
             _this.language = lang;
             if (_this.language == 'english') {
@@ -1352,8 +1346,7 @@ var ViewSuggestion = (function () {
                         _this.suggview = data;
                         for (var i = 0; i < _this.suggview.length; i++) {
                             _this.cssData.push({
-                                class: 'custom-hide',
-                                classInner: 'custom-hide'
+                                class: 'custom-hide'
                             });
                             if (i % 2 == 0) {
                                 _this.cssDataColor.push({
@@ -1366,7 +1359,6 @@ var ViewSuggestion = (function () {
                                 });
                             }
                         }
-                        _this.suggid = data.id;
                         loadingPopup.dismiss();
                     }
                     else {
@@ -1387,34 +1379,35 @@ var ViewSuggestion = (function () {
             });
         });
     }
-    ViewSuggestion.prototype.infocl = function (sug_id, index) {
+    ViewSuggestion.prototype.view_Reply = function (index, sugid) {
         var _this = this;
-        for (var i = 0; i < this.cssData.length; i++) {
-            if (i === index) {
-                if (this.cssData[index].class == 'custom-show') {
-                    this.cssData[index].class = 'custom-hide';
+        this.http.get(this.apiurl + "sugession_replyview?sugession_id=" + sugid).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.suggestonrply = data;
+            for (var i = 0; i < _this.cssData.length; i++) {
+                if (i === index) {
+                    if (_this.cssData[index].class == 'custom-show') {
+                        _this.cssData[index].class = 'custom-hide';
+                    }
+                    else {
+                        _this.cssData[index].class = 'custom-show';
+                    }
                 }
                 else {
-                    this.cssData[index].class = 'custom-show';
+                    _this.cssData[i].class = 'custom-hide';
                 }
             }
-            else {
-                this.cssData[i].class = 'custom-hide';
-            }
-        }
-        this.http.get(this.apiurl + "sugession_replyview?sugession_id=" + sug_id).map(function (res) { return res.json(); }).subscribe(function (data) {
-            _this.sugrply = data;
         });
     };
     return ViewSuggestion;
 }());
 ViewSuggestion = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-view-suggestion',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\view-suggestion\view-suggestion.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{titles.title}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-color:#f9e7cf;">\n   <!-- <ion-card *ngFor="let sugg of suggview; let i= index">\n      <ion-card-content class="view-sug">\n        <p><span>{{titles.name}}</span> : {{suggview[i].name}}</p>\n        <p><span>{{titles.sugg}}</span> : {{suggview[i].sugession}}</p>\n        <p><span>{{titles.mobile}}</span> : {{suggview[i].mobile}}</p>\n      </ion-card-content>\n      <ion-icon md="ios-arrow-dropdown-circle" (click)="replysug(suggview[i].id)"></ion-icon>\n      <ion-card *ngIf="buttonClicked">\n        <ion-card-content *ngFor="let sug of sugrply; let i =index;">\n            <p><span>{{titles.sugg}}</span> : {{suggview[i].sugession}}</p>\n            <p><span>{{titles.mobile}}</span> : {{suggview[i].mobile}}</p>\n        </ion-card-content>\n      </ion-card>\n    </ion-card> -->\n    <div *ngFor="let sugg of suggview; let i= index">\n    <div class="row-main">\n      <p>{{suggview[i].name}}</p>\n      <p class="mobile-row"><img src="img/mobile.png"/>{{suggview[i].mobile}}</p>\n      <ion-row class="arrow-row"> \n        <ion-icon class="down-icons" md="ios-arrow-down" (click)="infocl(suggview[i].id, i)"></ion-icon>\n      </ion-row>\n      <div [class] = "cssData[i].class">\n        <p class="sugg">{{titles.sugg}}</p>\n        <p>{{suggview[i].sugession}}</p>\n        <p class="sugg">{{titles.reply}}</p>\n        <div *ngFor="let sug of sugrply; let j=index">\n        <p >{{sugrply[j].message}}</p> \n        </div>\n      </div>\n    </div>\n    </div>\n   <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\view-suggestion\view-suggestion.html"*/,
+        selector: 'page-view-suggestion',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\view-suggestion\view-suggestion.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>{{titles.title}}</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-color:#f9e7cf;">\n  \n    <!-- <div *ngFor="let sugg of suggview; let i= index" class="top-row">\n    <div class="row-main">\n      <p class="top-name">{{suggview[i].sugession}}</p>\n      <ion-row class="arrow-row"> \n        <ion-icon class="down-icons" md="ios-arrow-down" (click)="infocl(suggview[i].id, i)"></ion-icon>\n      </ion-row>\n    </div>\n    <div [class] = "cssData[i].class">\n        <div class="drop-background">\n        <p class="sugg">{{titles.reply}}</p>\n        <p *ngFor="let sug of suggestonrply" class="sugg-margin">{{sug.message}}</p> \n      </div>\n    </div>\n    </div>\n   <p style="margin:1em 3em;font-size:20px;font-weight:500;color:#000;">{{titless.message2}}</p> -->\n\n<!-- \n   <div *ngFor="let imgeee of splitimages">\n      <div *ngFor="let imgee of imgeee.img">\n       <img *ngIf="imgee" src="http://kailash.mediaoncloud.com/MLAfiles/{{imgee}}" class="gal-img" />\n      </div>\n    </div> -->\n\n   <ion-row *ngFor="let sugg of suggview; let i= index" class="rnumber {{cssDataColor[i].class}}">\n      <p>{{suggview[i].sugession}}</p>\n      <ion-row><a (click)="view_Reply(i, suggview[i].id)" href="#">{{titles.viewreply}}</a></ion-row>\n      <ion-card [class] = "cssData[i].class">\n          <ion-card-content>\n            <ion-row *ngFor="let rep of suggestonrply">\n              <p  *ngIf="rep.message" class="reponse-us">{{rep.message}}</p>   \n            </ion-row>\n          </ion-card-content>\n        </ion-card>\n    </ion-row>\n\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\view-suggestion\view-suggestion.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
 ], ViewSuggestion);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=view-suggestion.js.map
 
 /***/ }),
@@ -1442,7 +1435,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var LangSetting = (function () {
-    //public people: Array<Object>;
     function LangSetting(navCtrl, navParams, storage) {
         var _this = this;
         this.navCtrl = navCtrl;
@@ -1463,7 +1455,6 @@ var LangSetting = (function () {
                 _this.titles = _this.englishleng;
                 _this.relationship = 'english';
             }
-            console.log(_this.titles);
         });
     }
     LangSetting.prototype.langset = function (a) {
@@ -1480,9 +1471,10 @@ LangSetting = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-lang-setting',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\lang-setting\lang-setting.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{titles.title}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <ion-list radio-group [(ngModel)]="relationship">\n        <ion-item>\n          <ion-label>{{titles.title1}}</ion-label>\n          <ion-radio value="english" checked></ion-radio>\n         \n        </ion-item>\n        <ion-item>\n          <ion-label>{{titles.title2}}</ion-label>\n          <ion-radio value="punjabi" ></ion-radio>\n        </ion-item>\n      </ion-list>\n      <button ion-button round outline block type="submit" class="button-submit" (click)="langset(relationship)">{{titles.setlang}}</button>        \n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\lang-setting\lang-setting.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]) === "function" && _c || Object])
 ], LangSetting);
 
+var _a, _b, _c;
 //# sourceMappingURL=lang-setting.js.map
 
 /***/ }),
@@ -1497,7 +1489,7 @@ LangSetting = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__setting_setting__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__setting_setting__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__home_home__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1648,7 +1640,7 @@ var EditProfile = (function () {
 }());
 EditProfile = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-edit-profile',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\edit-profile\edit-profile.html"*/'<ion-header>\n  <ion-navbar>\n     <ion-title>Edit Profile</ion-title> \n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-image: url(img/back.png); background-size: cover;">\n  <ion-grid class="first-one">  \n    <ion-row >\n  <ion-col col-7 class="col-one">\n  <p>{{titles.title}}</p>\n   <p class="p2">{{titles.Designation}}</p>\n    </ion-col>\n  \n  <ion-col col-5 class="col-second">\n  <img src="img/photo.jpg"/>\n  </ion-col>\n  \n   </ion-row>\n   </ion-grid>\n   <ion-row class="first-row">\n      <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="usrname" name="usrname"></ion-input>\n    </ion-row>\n    <!-- <ion-row class="first-row" >\n        <ion-input type="tel" maxlength="10" placeholder="{{titles.mobile}}"  [(ngModel)]="p_no" name="p_no"></ion-input>\n    </ion-row> -->\n    <ion-row class="first-row">\n        <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addvalue" name="addvalue"></ion-input>\n    </ion-row>\n   \n<ion-row class="second-row">\n  <select id="areacat" class="drop-down" type="text" name="Areaa" onmousedown="this.value=\'\';" [(ngModel)]="Areaa"\n    (change)="areacategory(Areaa)">  \n      <option value="" disabled selected>{{titles.area}}</option>\n      <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>\n    </select>\n</ion-row>\n\n<ion-row *ngIf="value == \'ward\' || (Areaa==\'Tarn Taran City\')" class="second-row">\n  <select class="drop-down" type="text" name="catward" onmousedown="this.value=\'\';" [(ngModel)]="catward" (change)="wardcategory(catward)">  \n    <option value="" disabled selected>{{titles.ward}}</option>\n    <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>\n  </select>\n</ion-row>\n<!-- [hidden]=\'!value1\' -->\n<ion-row  *ngIf="value==\'village\' || (Areaa==\'Tarn Taran Village\')" class="second-row">\n  <select class="drop-down" type="text" name="areavill" onmousedown="this.value=\'\';" [(ngModel)]="areavill" (change)="villagecat(areavill)">  \n    <option value="" disabled selected>{{titles.village}}</option>\n    <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>\n  </select>\n</ion-row>\n\n    <ion-row class="first-row">\n        <ion-input type="email" placeholder="{{titles.email}}({{titles.optional}})" [(ngModel)]="Email" name="Email"></ion-input>\n    </ion-row>\n    <ion-row class="second-row">\n      <p>{{titles.gender}}</p>\n      <select type="text" class="drop-down" placeholder="Select Gender" [(ngModel)]="gender" onmousedown="this.value=\'\';" >  \n        <option value="" disabled selected>{{titles.selectgen}}</option>\n        <option value="Female">{{titles.Female}}</option>\n        <option value="Male">{{titles.male}}</option>\n      </select>\n    </ion-row>\n  \n  <button ion-button block outline type="submit" class="button-submit" (click)="submit(usrname,addvalue,Areaa,catward,areavill,Email,gender)">Save Profile</button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\edit-profile\edit-profile.html"*/,
+        selector: 'page-edit-profile',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\edit-profile\edit-profile.html"*/'<ion-header>\n  <ion-navbar>\n     <ion-title>Edit Profile</ion-title> \n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-image: url(img/back.png); background-size: cover;">\n  <ion-grid class="first-one">  \n    <ion-row >\n  <ion-col col-7 class="col-one">\n  <p>{{titles.title}}</p>\n   <p class="p2">{{titles.Designation}}</p>\n    </ion-col>\n  \n  <ion-col col-5 class="col-second">\n  <img src="img/photo.jpg"/>\n  </ion-col>\n  \n   </ion-row>\n   </ion-grid>\n   <ion-row class="first-row">\n      <ion-input type="text" placeholder="{{titles.name}}" [(ngModel)]="usrname" name="usrname"></ion-input>\n    </ion-row>\n    <!-- <ion-row class="first-row" >\n        <ion-input type="tel" maxlength="10" placeholder="{{titles.mobile}}"  [(ngModel)]="p_no" name="p_no"></ion-input>\n    </ion-row> -->\n    <ion-row class="first-row">\n        <ion-input type="text" placeholder="{{titles.address}}" [(ngModel)]="addvalue" name="addvalue"></ion-input>\n    </ion-row>\n   \n<ion-row class="second-row">\n  <select id="areacat" class="drop-down" type="text" name="Areaa" onmousedown="this.value=\'\';" [(ngModel)]="Areaa"\n    (change)="areacategory(Areaa)">  \n      <option value="" disabled selected>{{titles.area}}</option>\n      <option *ngFor="let val of areatype" [ngValue]="val" style="color:#000;"> {{val}}</option>\n    </select>\n</ion-row>\n\n<ion-row *ngIf="value == \'ward\' || (Areaa==\'Tarn Taran City\')" class="second-row">\n  <select class="drop-down" type="text" name="catward" onmousedown="this.value=\'\';" [(ngModel)]="catward" (change)="wardcategory(catward)">  \n    <option value="" disabled selected>{{titles.ward}}</option>\n    <option *ngFor="let val of wardCategory; let i= index" [ngValue]="wardCategory[i].ward_num" style="color:#000;" > {{wardCategory[i].ward_num}}</option>\n  </select>\n</ion-row>\n<!-- [hidden]=\'!value1\' -->\n<ion-row  *ngIf="value==\'village\' || (Areaa==\'Tarn Taran Village\')" class="second-row">\n  <select class="drop-down" type="text" name="areavill" onmousedown="this.value=\'\';" [(ngModel)]="areavill" (change)="villagecat(areavill)">  \n    <option value="" disabled selected>{{titles.village}}</option>\n    <option *ngFor="let val of villagetype; let i= index" [ngValue]="villagetype[i].village" style="color:#000;" > {{villagetype[i].village}}</option>\n  </select>\n</ion-row>\n\n  <ion-row class="first-row">\n      <ion-input type="email" placeholder="{{titles.email}}({{titles.optional}})" [(ngModel)]="Email" name="Email"></ion-input>\n  </ion-row>\n  <ion-row class="second-row">\n    <p>{{titles.gender}}</p>\n    <select type="text" class="drop-down" placeholder="Select Gender" [(ngModel)]="gender" onmousedown="this.value=\'\';" >  \n      <option value="" disabled selected>{{titles.selectgen}}</option>\n      <option value="Female">{{titles.Female}}</option>\n      <option value="Male">{{titles.male}}</option>\n    </select>\n  </ion-row>\n  \n  <button ion-button block outline type="submit" class="button-submit" (click)="submit(usrname,addvalue,Areaa,catward,areavill,Email,gender)">Save Profile</button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\edit-profile\edit-profile.html"*/,
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
 ], EditProfile);
@@ -1824,7 +1816,6 @@ var ChangePhone = (function () {
             else {
                 _this.titles = _this.punjabi;
             }
-            console.log(_this.titles);
         });
     }
     ChangePhone.prototype.submit = function (phone) {
@@ -1853,9 +1844,10 @@ ChangePhone = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-change-phone',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\change-phone\change-phone.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>{{titles.title}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <p style="font-size:16px;font-weight:500;">{{titles.para}}</p>\n    <ion-row class="first-row">\n       <ion-input type="tel" maxlength="10" placeholder="{{titles.mob}}" [(ngModel)]="data.phone" name="data.phone"></ion-input>\n    </ion-row>\n    <button ion-button round outline block type="submit" class="button-submit" (click)="submit(data.phone)">{{titles.sub}}</button>\n    \n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\change-phone\change-phone.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_toast__["a" /* Toast */]) === "function" && _e || Object])
 ], ChangePhone);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=change-phone.js.map
 
 /***/ }),
@@ -1884,39 +1876,39 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_complaint_complaint__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_complaint_complaint__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_gallery_gallery__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_setting_setting__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_gallery_gallery__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_setting_setting__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_edit_profile_edit_profile__ = __webpack_require__(216);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_lang_setting_lang_setting__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_suggestion_suggestion__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_complaint_info_complaint_info__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_suggestion_suggestion__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_complaint_info_complaint_info__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_complaint_ref_complaint_ref__ = __webpack_require__(295);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_constituency_constituency__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_view_suggestion_view_suggestion__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_about_us_about_us__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_change_phone_change_phone__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_file__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_transfer__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_file_path__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_camera__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_media_capture__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_image_picker__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_file__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_transfer__ = __webpack_require__(203);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_file_path__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_camera__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_media_capture__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_image_picker__ = __webpack_require__(207);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_device__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_sim__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_status_bar__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_sqlite__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_splash_screen__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_status_bar__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_sqlite__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_splash_screen__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_storage__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_toast__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_in_app_browser__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_in_app_browser__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_onesignal__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_facebook__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_native_storage__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_network__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_network__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2045,16 +2037,15 @@ AppModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_device__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_storage__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_onesignal__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_complaint_info_complaint_info__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__ = __webpack_require__(105);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2077,9 +2068,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MyApp = (function () {
-    function MyApp(platform, network, sqlite, oneSignal, storage, statusBar, splashScreen, device) {
+    function MyApp(platform, toastCtrl, network, sqlite, oneSignal, storage, statusBar, splashScreen, device) {
         var _this = this;
         this.platform = platform;
+        this.toastCtrl = toastCtrl;
         this.network = network;
         this.sqlite = sqlite;
         this.oneSignal = oneSignal;
@@ -2121,9 +2113,19 @@ var MyApp = (function () {
             _this.oneSignal.inFocusDisplaying(_this.oneSignal.OSInFocusDisplayOption.Notification);
             _this.oneSignal.handleNotificationReceived().subscribe(function (data) {
                 // do something when notification is received
-                _this.platform.ready().then(function () {
-                    window.plugins.toast.show('Hi !You have notification: ' + data.payload.body, "long", "center");
+                // this.platform.ready().then(() => {
+                //   window.plugins.toast.show('Hi !You have notification: '+data.payload.body, "long", "center");
+                // });
+                var toast = _this.toastCtrl.create({
+                    message: data.payload.body,
+                    duration: 15000,
+                    position: 'center',
+                    showCloseButton: true
                 });
+                toast.onDidDismiss(function () {
+                    console.log('Dismissed toast');
+                });
+                toast.present();
             });
             _this.oneSignal.getIds().then(function (dviceid) {
                 _this.storage.set('token_id', dviceid.userId);
@@ -2136,7 +2138,7 @@ var MyApp = (function () {
                 _this.storage.get('Uid').then(function (Uid) {
                     _this.userId = Uid;
                     if (_this.userId) {
-                        _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_11__pages_complaint_info_complaint_info__["a" /* ComplaintInfo */]);
+                        _this.nav.push(__WEBPACK_IMPORTED_MODULE_5__pages_home_home__["a" /* HomePage */]);
                     }
                 });
             });
@@ -2179,7 +2181,7 @@ __decorate([
 MyApp = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\app\app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\app\app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__["a" /* SQLite */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_onesignal__["a" /* OneSignal */], __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_device__["a" /* Device */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ToastController */], __WEBPACK_IMPORTED_MODULE_10__ionic_native_network__["a" /* Network */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_sqlite__["a" /* SQLite */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_onesignal__["a" /* OneSignal */], __WEBPACK_IMPORTED_MODULE_8__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_device__["a" /* Device */]])
 ], MyApp);
 
 //# sourceMappingURL=app.component.js.map
@@ -2287,16 +2289,16 @@ ComplaintRef = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__complaint_complaint__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__suggestion_suggestion__ = __webpack_require__(209);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gallery_gallery__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__complaint_info_complaint_info__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__complaint_complaint__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__suggestion_suggestion__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gallery_gallery__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__complaint_info_complaint_info__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__constituency_constituency__ = __webpack_require__(212);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__about_us_about_us__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__view_suggestion_view_suggestion__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__setting_setting__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__setting_setting__ = __webpack_require__(106);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2340,7 +2342,6 @@ var HomePage = (function () {
             else {
                 _this.titles = _this.punjabi;
             }
-            console.log(_this.titles);
         });
         this.fbtype = this.navParams.get('type');
         this.fbName = this.navParams.get('name');
@@ -2391,11 +2392,12 @@ var HomePage = (function () {
 }());
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar hideBackbutton="true">\n    <ion-title> {{titles.title}} {{titles.lastname}}<ion-icon md="ios-settings" (click)="setting()" style="float:right;"></ion-icon></ion-title>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(img/gurudwara.jpg); background-size: cover;">\n<ion-grid class="first-row">  \n  <ion-row (click)="about()">\n    <ion-col col-7 class="col-one">\n      <p>{{titles.title}}<br/>{{titles.lastname}}</p>\n      <p class="p2">{{titles.Designation}}</p>\n    </ion-col>\n    <ion-col col-5 class="col-second">\n      <img src="img/photo.jpg"/>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-grid class="row-second">  \n  <ion-row >\n    <ion-col class="col-two" (click)="comp()">\n      <img src="img/p1.png"/>\n        <p>{{titles.complaint}} </p>\n    </ion-col>\n    <ion-col  class="padding-none ">\n    <ion-row class="right-sidetop" (click)="compinfo()">\n      <img src="img/p2.png"/><br/>\n        <p>{{titles.view}}<br/>{{titles.comp}}</p>\n    </ion-row>\n      <ion-row class="right-side" (click)="sugges()">\n        <img src="img/p3.png"/><br/>\n        <p>{{titles.sugges}}</p>\n      </ion-row>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-grid class="last-grid" >  \n  <ion-row>\n    <ion-col col-7 class="third-col"  (click)="view_sugg()">\n      <ion-row><img src="img/p1.png"/><p>{{titles.viewsug}}</p></ion-row>\n    </ion-col>\n    <ion-col  col-5 class="fourth-col" (click)="gallery()">\n      <ion-row>\n          <img src="img/p5.png"/><p>{{titles.gallery}}</p>\n        </ion-row>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-row class="last-div" (click)="constituent()">\n<img src="img/p6.png"/><p>{{titles.constituency}}</p>\n</ion-row>\n<!-- <ion-row class="first-row">\n  <button ion-button small><img src="img/Complaint_icon.png" (click)="comp()"/><p class="text">Complaint</p></button>\n  <button ion-button small><img src="img/viewcomplaint.png" (click)="compinfo()"/><p class="text">View Complaints</p></button>\n</ion-row>\n<ion-row class="">\n  <button ion-button small><img src="img/suggestion.png" (click)="sugges()"/><p class="text">Suggestion</p></button>\n  <button ion-button small><img src="img/gallery.png" (click)="gallery()"/><p class="text">Gallery</p></button>\n</ion-row>\n<ion-row class="">\n  <button ion-button small><img src="img/Faq.png" /><p class="text">FAQ</p></button>\n  <button ion-button small><img src="img/constitution.png" /><p class="text">Constituency</p></button>\n</ion-row> -->\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\home\home.html"*/
+        selector: 'page-home',template:/*ion-inline-start:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar hideBackbutton="true">\n    <ion-title> {{titles.title}} {{titles.lastname}}<ion-icon md="ios-settings" (click)="setting()" style="float:right;"></ion-icon></ion-title>\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(img/gurudwara.jpg); background-size: cover;">\n<ion-grid class="first-row">  \n  <ion-row (click)="about()">\n    <ion-col col-7 class="col-one">\n      <p>{{titles.title}}<br/>{{titles.lastname}}</p>\n      <p class="p2">{{titles.Designation}}</p>\n    </ion-col>\n    <ion-col col-5 class="col-second">\n      <img src="img/photo.jpg"/>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-grid class="row-second">  \n  <ion-row >\n    <ion-col class="col-two" (click)="comp()">\n      <img src="img/p1.png"/>\n        <p>{{titles.complaint}} </p>\n    </ion-col>\n    <ion-col  class="padding-none ">\n    <ion-row class="right-sidetop" (click)="compinfo()">\n      <img src="img/p2.png"/><br/>\n        <p>{{titles.view}}<br/>{{titles.comp}}</p>\n    </ion-row>\n      <ion-row class="right-side" (click)="sugges()">\n        <img src="img/p3.png"/><br/>\n        <p>{{titles.sugges}}</p>\n      </ion-row>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-grid class="last-grid" >  \n  <ion-row>\n    <ion-col col-7 class="third-col"  (click)="view_sugg()">\n      <ion-row><img src="img/p1.png"/><p>{{titles.viewsug}}</p></ion-row>\n    </ion-col>\n    <ion-col  col-5 class="fourth-col" (click)="gallery()">\n      <ion-row>\n          <img src="img/p5.png"/><p>{{titles.gallery}}</p>\n        </ion-row>\n    </ion-col>\n  </ion-row>\n</ion-grid>\n\n<ion-row class="last-div" (click)="constituent()">\n<img src="img/p6.png"/><p>{{titles.constituency}}</p>\n</ion-row>\n</ion-content>\n'/*ion-inline-end:"C:\Users\mediaoncloud\Desktop\MLAapp\src\pages\home\home.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */], __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__angular_http__["b" /* Http */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
 ], HomePage);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=home.js.map
 
 /***/ }),
@@ -2463,7 +2465,6 @@ var Login = (function () {
             else {
                 _this.titles = _this.punjabi;
             }
-            console.log(_this.titles);
         });
     }
     Login.prototype.submit = function (mobile) {

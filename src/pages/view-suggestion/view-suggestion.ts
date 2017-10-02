@@ -12,17 +12,18 @@ export class ViewSuggestion {
   apiurl:any;
   buttonClicked: boolean = false;
   suggview:any = [];cssData: any = [];language:any;titles:any =[];titless:any =[];english: any =[];punjabi: any =[];
-  userphne:any;userId:any;sugid:any;message:any;message1:any;suggid:any;cssDataColor : any = [];sugrply:any =[];
+  userphne:any;userId:any;sugid:any;message:any;message1:any;suggid:any;cssDataColor:any= [];sugrply:any =[];
+  suggestonrply:any=[];
+  allreply:any=[];
   constructor(public navCtrl: NavController, private loadingCtrl: LoadingController, public navParams: NavParams, public http:Http, private storage: Storage) {
     this.apiurl="http://isp.mediaoncloud.com/MLA/";
-    
-    this.english= {title: 'View Suggestion', name: 'Name', sugg: 'Suggestion', mobile:'Phone Number', area: 'Area', ward: 'Ward', village: 'Village', reply: 'Reply'};
-    this.punjabi = {title: 'ਸੁਝਾਅ ਦੇਖੋ', name: 'ਨਾਮ', sugg: 'ਸਲਾਹ', mobile:'ਮੋਬਾਈਲ',area: 'ਖੇਤਰ', ward: 'ਵਾਰਡ', village: 'ਪਿੰਡ', reply: 'ਜਵਾਬ ਦਿਉ'};
+
+    this.english= {title: 'View Suggestion', viewreply: 'View Reply', name: 'Name', sugg: 'Suggestion', mobile:'Phone Number', area: 'Area', ward: 'Ward', village: 'Village', reply: 'Reply'};
+    this.punjabi = {title: 'ਸੁਝਾਅ ਦੇਖੋ', viewreply: 'ਜਵਾਬ ਦੇਖੋ', name: 'ਨਾਮ', sugg: 'ਸਲਾਹ', mobile:'ਮੋਬਾਈਲ',area: 'ਖੇਤਰ', ward: 'ਵਾਰਡ', village: 'ਪਿੰਡ', reply: 'ਜਵਾਬ ਦਿਉ'};
     this.storage.get('lang').then((lang) => {
     this.language= lang;
       if(this.language == 'english'){
         this.titles = this.english;   
-
       }else{
         this.titles = this.punjabi;
       }
@@ -40,8 +41,7 @@ export class ViewSuggestion {
           this.suggview= data;
           for (let i = 0; i < this.suggview.length; i++) {
             this.cssData.push({
-              class: 'custom-hide',
-              classInner: 'custom-hide'
+              class: 'custom-hide'
             });
            
             if(i%2==0){
@@ -54,7 +54,6 @@ export class ViewSuggestion {
             });
             }
           } 
-          this.suggid = data.id;
           loadingPopup.dismiss();
         }else{
           this.english= { message2: "There is no Suggestion"};
@@ -72,27 +71,24 @@ export class ViewSuggestion {
       }, 1000); 
   })
 })
-
 }
 
-infocl(sug_id,index){
-  for(let i = 0; i < this.cssData.length; i++){
-    if(i === index)
-      {
-        if(this.cssData[index].class == 'custom-show'){
-          this.cssData[index].class = 'custom-hide';
-        }else{
-          this.cssData[index].class = 'custom-show';
-        }
-      }
-      else{
-          this.cssData[i].class = 'custom-hide';
-      }
-    } 
-  this.http.get(this.apiurl+"sugession_replyview?sugession_id="+ sug_id).map(res => res.json()).subscribe(data => {
-   
-    this.sugrply = data;
-    
+view_Reply(index,sugid){
+  this.http.get(this.apiurl+"sugession_replyview?sugession_id=" +sugid).map(res => res.json()).subscribe(data => {
+    this.suggestonrply = data;
+      for(let i = 0; i < this.cssData.length; i++){
+        if(i === index)
+          {
+            if(this.cssData[index].class == 'custom-show'){
+              this.cssData[index].class = 'custom-hide';
+            }else{
+              this.cssData[index].class = 'custom-show';
+            }
+          }
+          else{
+              this.cssData[i].class = 'custom-hide';
+          }
+        } 
   })
 }
 

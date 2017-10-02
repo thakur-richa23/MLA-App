@@ -23,7 +23,6 @@ apiurl:any;
   constructor(public navCtrl: NavController,public fb: Facebook, private loadingCtrl: LoadingController, public alertCtrl: AlertController, public nativeStorage: NativeStorage, private storage: Storage, public navParams: NavParams, public http:Http, private toast:Toast) {
     this.data = [];
     this.apiurl="http://isp.mediaoncloud.com/MLA/";
-    
     this.data.mobile = '';
     this.data.pass = '';
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
@@ -37,13 +36,10 @@ apiurl:any;
       }else{
         this.titles = this.punjabi;
       }
-      console.log(this.titles);
     })
   }
 
   submit(mobile){
-
-   
     this.storage.set('otp','');
     this.y = Math.floor((Math.random() * 10000) + 100);
     this.http.get('https://2factor.in/API/V1/882ceda6-9df5-11e7-94da-0200cd936042/SMS/'+ mobile +'/' + this.y).map(res => res.json()).subscribe(data => {
@@ -68,29 +64,29 @@ apiurl:any;
                 text: 'Submit',
                 handler: data => {
                   if(this.userOtp == data.otp){
-      this.http.get(this.apiurl+"login?phone=" +mobile).map(res => res.json()).subscribe(data => {                    
-        this.loginData = data;
-        this.loginphone = data.phone;
-        this.storage.set('Uid', this.loginData.id); 
-        this.storage.set('ph_no', this.loginphone);                                      
-          if(this.loginData.status != 'Failed'){
-            //alert("You are logged in successfully");  
-            this.toast.show(`You are logged in successfully`, 'long', 'center').subscribe(
-              toast => {
-                console.log(toast);
-              });
-              this.navCtrl.setRoot(HomePage);
-              //loadingPopup.dismiss();  
-          }
-        else{
-            //alert("Invalid Details");
-            this.toast.show(`Invalid Details`, 'long', 'center').subscribe(
-              toast => {
-               
-            });
-          }
-    
-       })
+                      this.http.get(this.apiurl+"login?phone=" +mobile).map(res => res.json()).subscribe(data => {                    
+                        this.loginData = data;
+                        this.loginphone = data.phone;
+                        this.storage.set('Uid', this.loginData.id); 
+                        this.storage.set('ph_no', this.loginphone);                                      
+                          if(this.loginData.status != 'Failed'){
+                            //alert("You are logged in successfully");  
+                            this.toast.show(`You are logged in successfully`, 'long', 'center').subscribe(
+                              toast => {
+                                console.log(toast);
+                              });
+                              this.navCtrl.setRoot(HomePage);
+                              //loadingPopup.dismiss();  
+                          }
+                        else{
+                            //alert("Invalid Details");
+                            this.toast.show(`Invalid Details`, 'long', 'center').subscribe(
+                              toast => {
+                              
+                            });
+                          }
+                    
+                      })
                   }else{
                     //alert("Your OTP not matched. Fill it again");
                     this.toast.show(`Your OTP not matched. Fill it again`, 'long', 'center').subscribe(

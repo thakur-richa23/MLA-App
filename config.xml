@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.mladragnihotri.com" version="0.0.22" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>MLAapp</name>
-  <description>An awesome Ionic/Cordova app.</description>
+<widget id="com.mladragnihotri.com" version="0.0.23" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Dr. Dharambir Agnihotri</name>
+  <description> Dr. Dharambir Agnihotri </description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
   <content src="index.html"/>
   <access origin="*"/>

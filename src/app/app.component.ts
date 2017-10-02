@@ -14,6 +14,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { EditProfile } from '../pages/edit-profile/edit-profile';
 import { Network } from '@ionic-native/network';
 import { ComplaintInfo } from '../pages/complaint-info/complaint-info';
+import { ToastController } from 'ionic-angular';
 
 
 declare var window: any;
@@ -34,7 +35,7 @@ export class MyApp {
   english: any =[];
   punjabi: any =[];
 
-  constructor(public platform: Platform, private network: Network, private sqlite: SQLite, private oneSignal: OneSignal, private storage: Storage, public statusBar: StatusBar, public splashScreen: SplashScreen, private device: Device) {
+  constructor(public platform: Platform,public toastCtrl: ToastController, private network: Network, private sqlite: SQLite, private oneSignal: OneSignal, private storage: Storage, public statusBar: StatusBar, public splashScreen: SplashScreen, private device: Device) {
     
     this.initializeApp();
     // used for an example of ngFor and navigation
@@ -71,9 +72,23 @@ export class MyApp {
     
     this.oneSignal.handleNotificationReceived().subscribe((data) => {
      // do something when notification is received
-      this.platform.ready().then(() => {
-        window.plugins.toast.show('Hi !You have notification: '+data.payload.body, "long", "center");
-      });
+      // this.platform.ready().then(() => {
+      //   window.plugins.toast.show('Hi !You have notification: '+data.payload.body, "long", "center");
+      // });
+
+        const toast = this.toastCtrl.create({
+          message: data.payload.body,
+          duration: 15000,
+          position: 'center',
+          showCloseButton: true
+        });
+      
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+      
+        toast.present();
+      
     });
     this.oneSignal.getIds().then((dviceid)=>{   
         this.storage.set('token_id', dviceid.userId); 
@@ -86,10 +101,9 @@ export class MyApp {
       this.storage.get('Uid').then((Uid) => {
         this.userId = Uid;
         if(this.userId){
-          this.nav.setRoot(ComplaintInfo);
+          this.nav.push(HomePage);
         }
       })
-
 
     });
     this.oneSignal.endInit(); // ends here

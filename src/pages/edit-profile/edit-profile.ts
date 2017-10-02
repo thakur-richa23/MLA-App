@@ -90,7 +90,6 @@ this.storage.get('facebooktype').then((facebooktype) => {
 areacategory(x){
   if (x == 'Tarn Taran City') {
     this.value = 'ward'; 
-    
     //this.value1 = '';
   } else if (x == 'Tarn Taran Village'){
     this.value = 'village';

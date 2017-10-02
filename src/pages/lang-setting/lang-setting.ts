@@ -9,9 +9,7 @@ import { HomePage } from '../home/home';
 })
 export class LangSetting {
   first:any;second:any;language:any;titles:any =[];title:any;relationship:any;englishleng: any =[];punjabi: any =[];gender:any;
-  //public people: Array<Object>;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage:Storage) {
-    
     this.englishleng= { title: 'Language Setting', title1: 'English', title2: 'Punjabi', setlang: 'Set Language'};
     this.punjabi = { title: 'ਭਾਸ਼ਾ ਸੈਟਿੰਗ', title1: 'English', title2: 'ਪੰਜਾਬੀ', setlang: 'ਭਾਸ਼ਾ ਸੈੱਟ ਕਰੋ'};
     this.storage.get('lang').then((lang) => {
@@ -23,9 +21,7 @@ export class LangSetting {
         this.titles = this.englishleng;
         this.relationship = 'english';
       }
-      console.log(this.titles);
     })
-  
   }
 
   langset(a){

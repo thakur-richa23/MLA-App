@@ -143,7 +143,7 @@ this.network.onConnect().subscribe(()=> {
               }      
        },1000); 
 
-          })
+      })
     })
   }
 
@@ -218,19 +218,15 @@ this.network.onConnect().subscribe(()=> {
 
   volume(){
     this.video=document.getElementById('video1');
- 
     if (!this.video.muted) {
          this.video.muted = true;
          this.vol='mute';
- 
      } else {
          this.video.muted = false;
          this.vol='unmute';
- 
      }
  }
-   play(){
-     
+  play(){
      this.video=document.getElementById('video1');
      if(this.video.paused===false){
          this.status='playimg';
@@ -242,7 +238,7 @@ this.network.onConnect().subscribe(()=> {
        }
    }
 
-   rewind(){
+  rewind(){
     this.video=document.getElementById('video1');
     this.video.currentTime-=10; 
   }

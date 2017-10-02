@@ -32,10 +32,8 @@ export class Suggestion {
       }else{
         this.titles = this.punjabi;
       }
-      console.log(this.titles);
     })
     
-
     this.storage.get('facebooktype').then((facebooktype) => {
     this.suggftype = facebooktype;
     if(this.suggftype != 'facebook'){
@@ -64,12 +62,10 @@ export class Suggestion {
 
   this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
     this.wardCategory= data;
-   
 })
 
 this.http.get(this.apiurl+"selectArea").map(res => res.json()).subscribe(data => {
 this.areatype= data;
-console.log(this.areatype);
 })
 
 this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {

@@ -13,7 +13,6 @@ export class Gallery {
   slideData:any =[];slideData1:any =[];fb_res:any =[];fb_res1:any=[];items =[];allImages = [];imagesoffset : any;item=[];load:any;
   newmoviesoffset:any;moviesOffset:any;language:any;titles:any =[];english: any =[];punjabi: any =[];
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage: Storage,private iab: InAppBrowser, public http: Http,public alertCtrl: AlertController, private loadingCtrl: LoadingController) {
-    //this.slideData = [{ image: 'img/slide1.jpg'},{ image: 'img/slide2.jpg'},{ image: 'img/slide3.jpg'}]
     this.apiurl="http://isp.mediaoncloud.com/MLA/";
     this.fb_api();
       this.fb_pagination();
@@ -31,14 +30,12 @@ export class Gallery {
 
     this.http.get(this.apiurl+"fbApiShowAll").map(res =>res.json()).subscribe(data =>{
     this.fb_res = 60 / 10;
-    console.log(this.fb_res);
   })
   }
 
   fb_api(){
     this.http.get(this.apiurl+"fbApi").map(res =>res.json()).subscribe(data =>{
       this.fb_res = data;
-      console.log(this.fb_res);
      })
   }
  
@@ -88,7 +85,6 @@ export class Gallery {
               this.load='';
                 for (let i = 0; i < this.item.length; i++) {
                   this.allImages.push(this.item[i]);
-                  console.log(this.allImages);
                 }
                 loadingPopup.dismiss();      
                 infiniteScroll.complete();     
@@ -96,7 +92,6 @@ export class Gallery {
             }, 1000);      
         }
         else{
-          //alert("No more images available...");
             setTimeout(() => {
                 this.load='No more images available...'
                 infiniteScroll.complete();
@@ -110,12 +105,10 @@ export class Gallery {
       infiniteScroll.complete();
       
   },1000);
-  
   }
-       })
+    })
        loadingPopup.dismiss();  
     }
-  
   }
 
 openImage(image){

@@ -89,7 +89,6 @@ export class Complaint {
         })
       })
     }
-   
 })
 
     this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
@@ -108,10 +107,9 @@ export class Complaint {
   this.http.get(this.apiurl+"selectVillage").map(res => res.json()).subscribe(data => {
     this.villagetype= data;
   })  
-
-
 }
-  areacategory(x){
+
+areacategory(x){
     if (x == 'Tarn Taran City') {
       this.value = 'ward'; 
       this.value1 = '';
@@ -119,60 +117,60 @@ export class Complaint {
       this.value = '';
       this.value1 = 'village'; 
     }
-  } 
+} 
 
-  selstate(y){
+selstate(y){
   if(y == 'Other'){
     this.enableIn = 'anyOther';
   }
-  }
+}
 
-  wardcategory(a){
-    this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-       if(data[i].id == a){
-         console.log(data[i].priority);
-         this.priorityvalue = data[i].priority;
-       }    
+wardcategory(a){
+  this.http.get(this.apiurl+"wardview").map(res => res.json()).subscribe(data => {
+    for (let i = 0; i < data.length; i++) {
+      if(data[i].id == a){
+        console.log(data[i].priority);
+        this.priorityvalue = data[i].priority;
+      }    
     }  
   })
-  }
+}
 
-  villagecat(b){
+villagecat(b){
 
-  }
+}
 
-  backbtn(){
-    this.navCtrl.push(HomePage);
-  }
+backbtn(){
+  this.navCtrl.push(HomePage);
+}
  
-  selectmulImage() {
-    let actionSheet = this.actionSheetCtrl.create({
-      //  title: 'Select Image Source',
-      buttons: [{
-        text: 'Upload Picture',
-        cssClass: 'upload',
-        handler: () => {
-          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-          //  this.uploadImage();
-        }
-      },
-      {
-        text: 'Use Camera',
-        cssClass: 'camera',
-        handler: () => {
-          this.takePicture(this.camera.PictureSourceType.CAMERA);
-          //  this.uploadImage();
-        }
-      },
-      {
-        text: 'Cancel',
-        cssClass: 'cancel',
-        role: 'cancel'
-      }]
-    });
-    actionSheet.present();
-  }
+selectmulImage() {
+  let actionSheet = this.actionSheetCtrl.create({
+    //  title: 'Select Image Source',
+    buttons: [{
+    text: 'Upload Picture',
+    cssClass: 'upload',
+    handler: () => {
+      this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+      //  this.uploadImage();
+    }
+  },
+  {
+    text: 'Use Camera',
+    cssClass: 'camera',
+    handler: () => {
+    this.takePicture(this.camera.PictureSourceType.CAMERA);
+    //  this.uploadImage();
+    }
+  },
+  {
+    text: 'Cancel',
+    cssClass: 'cancel',
+    role: 'cancel'
+  }]
+});
+  actionSheet.present();
+}
 // function for multiple images 
 public takePicture(sourceType){
   const options: CameraOptions = {
@@ -295,7 +293,6 @@ private presentToast(text) {
   });
   toast.present();
 } 
-// Always get the accurate path to your apps folder
 public pathForImage(img) {
   if (img === null) {
     return '';
